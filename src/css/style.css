@@ -1,0 +1,76 @@
+body {
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 500;
+  color: #444;
+}
+
+.sidebarToggle {
+  position: absolute;
+  bottom: 0px;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link span {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+.page-title {
+  font-weight: 600;
+}
+
+#sidebarToggle::after {
+  display: none;
+}
+
+.table-data {
+  font-size: 14px !important;
+}
+
+.buttons-tab {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.muted {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.main-cover {
+  min-height: 100vh;
+}
+
+.bg-lsd {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  /* display: none; */
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-close-icon {
+  right: 0px;
+  z-index: 10;
+}
