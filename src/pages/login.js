@@ -92,7 +92,6 @@ class Login extends Component {
     fetch(window.server + "/authentication", {
       method: "POST",
       headers: {
-        // "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
       },
@@ -112,7 +111,7 @@ class Login extends Component {
           localStorage.token = response.accessToken;
           window.user = response;
           localStorage.user = JSON.stringify(window.user);
-          this.props.history.push("/home");
+          this.props.history.push("/");
         }
       })
       .catch(() => {

@@ -11,24 +11,29 @@ class Table extends Component {
     count: 1,
     currentPagination: 0,
     custom: false,
-    customText: ""
+    customText: "",
+    tableLoading: true
   };
   render() {
     return (
       <>
-        <div
-          className={
-            "d-flex flex-fill flex-column " +
-            (this.state.tableLoading ? "table-loading" : "")
-          }>
-          <div className="d-flex flex-row justify-content-between align-items-center">
+        <div className={"d-flex flex-fill flex-column "}>
+          <div className="d-flex flex-row justify-content-between align-items-center mb-3">
+            <div className="d-flex flex-column justify-content-center position-relative">
+              <Search className="search-icon" color="#dedede" />
+              <input
+                type="search"
+                className="form-control pl-5"
+                placeholder="Search here"
+              />
+            </div>
             <div className="d-flex flex-row align-items-center">
               <span className="mr-2">Show </span>
               <select
                 className="form-control form-control-sm"
                 onChange={event => {
                   this.setState({ limit: parseInt(event.target.value) });
-                  console.log(this.state.limit);
+                  // console.log(this.state.limit);
                   setTimeout(() => {
                     this.fetchTable();
                   }, 100);
@@ -42,8 +47,25 @@ class Table extends Component {
             </div>
           </div>
 
-          <div className="d-flex flex-fill tb-cover">
-            <table className="table table-striped text-dark table-borderless">
+          <div className="d-flex flex-fill tb-cover position-relative">
+            {this.state.tableLoading && (
+              <div
+                className={
+                  "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader"
+                }>
+                <div class="lds-roller">
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                </div>
+              </div>
+            )}
+            <table className="table table-striped text-dark table-bordered table-hover">
               <thead>
                 <tr>
                   {this.state.titles.map((title, i) => (
@@ -55,11 +77,11 @@ class Table extends Component {
               </thead>
               <tbody>
                 {this.state.data.map((data, index) => (
-                  <tr key={index}>
+                  <tr key={index} className="cursor-pointer">
                     {Object.keys(data).map((d, i) => {
                       let o =
                         data[d] == null || data[d] == "" ? " - " : data[d];
-                      if (typeof o == "object") o = "-";
+                      // if (typeof o == "object") o = "-";
                       return (
                         <td key={i} className="table-data">
                           {o}
@@ -170,34 +192,7 @@ class Table extends Component {
 
   fetchTable = () => {
     this.setState({ tableLoading: true });
-
-    fetch(
-      `${window.server}/users?$limit=${this.state.limit}&$skip=${
-        this.state.offset
-      }`,
-      {
-        headers: {
-          Authorization: localStorage.token
-        }
-      }
-    )
-      .then(response => response.json())
-      .then(response => {
-        let { data } = response;
-        console.log(data);
-
-        let titles = Object.keys(data[0]);
-        this.setState({
-          tableLoading: false,
-          data,
-          titles,
-          count: response.total
-        });
-      })
-      .catch(d => {
-        this.setState({ tableLoading: false });
-        console.log(d);
-      });
+    this.props.fetch({ $skip: this.state.offset, $limit: this.state.limit });
   };
 
   generatePagination() {
@@ -225,7 +220,7 @@ class Table extends Component {
           key={pos}
           className={
             "page-item " +
-            (this.state.currentPagination == position ? "active" : "")
+            (this.state.currentPagination === position ? "active" : "")
           }>
           <button
             className="page-link"
@@ -245,6 +240,27 @@ class Table extends Component {
     }
 
     return pagination;
+  }
+
+  componentWillReceiveProps(props) {
+    if (typeof props.data.data == "object") {
+      let titles;
+      let { data } = props.data;
+
+      console.log("tableData", data);
+      if (data.length === 0) {
+        titles = this.state.titles;
+      } else {
+        titles = Object.keys(data[0]);
+      }
+
+      this.setState({
+        data,
+        titles,
+        count: props.data.total,
+        tableLoading: false
+      });
+    }
   }
 }
 
