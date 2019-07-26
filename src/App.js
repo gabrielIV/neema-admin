@@ -98,8 +98,9 @@ class App extends Component {
 class Portal extends Component {
   state = {};
   render() {
-    if (localStorage.token === undefined) {
+    if (typeof localStorage.token === "undefined") {
       this.props.history.push("/login");
+      alert("undefined");
     }
     return (
       <div id="wrapper">
