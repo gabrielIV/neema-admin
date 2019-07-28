@@ -45,7 +45,9 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/login" component={Login} />
-        {this.state.loaded && <Route path="/" component={Portal} />}
+        {(this.state.loaded || !localStorage.token) && (
+          <Route path="/" component={Portal} />
+        )}
       </Switch>
     );
   }

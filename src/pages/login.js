@@ -104,7 +104,7 @@ class Login extends Component {
         this.setState({ disabled: false });
 
         if (response.code === 401) {
-          alert("Wrong phone/password. please try again");
+          alert(response.message);
           this.setState({ password: "" });
           return false;
         } else if (response.accessToken) {
