@@ -20,12 +20,11 @@ class Users extends Component {
         </div>
 
         <Filter
-          filter={[
-            { name: "All clients", value: 0 },
-            { name: "Dormat clients", value: 20 },
-            { name: "New clients", value: 20 },
-            { name: "Served clients", value: 20 }
-          ]}
+          // filter={[
+          //   { name: "All clients", value: 0 }
+          // ]}
+          branches={true}
+          zone={true}
           getFilter={filter => {
             setTimeout(() => {
               this.setState({

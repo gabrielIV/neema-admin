@@ -196,7 +196,7 @@ class Table extends Component {
   };
 
   generatePagination() {
-    console.log("currentPagination :", this.state.currentPagination);
+    // console.log("currentPagination :", this.state.currentPagination);
     let count = parseInt(this.state.count);
     let { limit } = this.state;
     let { offset } = this.state;
@@ -225,7 +225,7 @@ class Table extends Component {
           <button
             className="page-link"
             onClick={() => {
-              console.log("next position :: ", pos);
+              // console.log("next position :: ", pos);
               let offset = pos * limit;
               this.setState({ offset, currentPagination: pos });
               setTimeout(() => {
@@ -247,7 +247,7 @@ class Table extends Component {
       let titles;
       let { data } = props.data;
 
-      console.log("tableData", data);
+      // console.log("tableData", data);
       if (data.length === 0) {
         titles = this.state.titles;
       } else {

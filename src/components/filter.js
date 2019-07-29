@@ -15,66 +15,83 @@ class Filter extends Component {
     zone: window.zones[0].id,
     branch: window.branches[0].id,
     dateVisible: false,
-    filter: this.props.filter[0].value
+    filter: []
   };
   render() {
     return (
       <>
         <div className="d-flex flex-row justify-content-between my-3 position-relative">
           <div className="d-flex flex-row">
-            <div className="mx-2 flex-column">
-              <small className="mb-2 font-weight-bold">Branch </small>
-              <select
-                name=""
-                id=""
-                className="form-control py-1 filter-option"
-                onChange={e =>
-                  this.setState({ branch: parseInt(e.target.value) })
-                }>
-                {window.branches.map(d => (
-                  <option value={d.id}>{d.branch_name}</option>
-                ))}
-              </select>
-            </div>
+            {this.props.branches && (
+              <div className="mx-2 flex-column">
+                <small className="mb-2 font-weight-bold">Branch </small>
+                <select
+                  name=""
+                  id=""
+                  className="form-control py-1 filter-option"
+                  onChange={e =>
+                    this.setState({ branch: parseInt(e.target.value) })
+                  }>
+                  {window.branches.map(d => (
+                    <option value={d.id}>{d.branch_name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
-            <div className="mx-2 flex-column">
-              <small className="mb-2 font-weight-bold">Zone </small>
-              <select
-                name=""
-                id=""
-                className="form-control py-1 filter-option"
-                onChange={e =>
-                  this.setState({ zone: parseInt(e.target.value) })
-                }>
-                {window.zones.map((d, i) => {
-                  // console.log(d.branch_id, this.state);
-                  return (
-                    (d.branch_id === this.state.branch ||
-                      this.state.branch === 0) && (
-                      <option value={d.id} key={i}>
-                        {d.zone_name}
-                      </option>
-                    )
-                  );
-                })}
-              </select>
-            </div>
+            {this.props.zone && (
+              <div className="mx-2 flex-column">
+                <small className="mb-2 font-weight-bold">Zone </small>
+                <select
+                  name=""
+                  id=""
+                  className="form-control py-1 filter-option"
+                  onChange={e =>
+                    this.setState({ zone: parseInt(e.target.value) })
+                  }>
+                  {window.zones.map((d, i) => {
+                    // console.log(d.branch_id, this.state);
+                    return (
+                      (d.branch_id === this.state.branch ||
+                        this.state.branch === 0) && (
+                        <option value={d.id} key={i}>
+                          {d.zone_name}
+                        </option>
+                      )
+                    );
+                  })}
+                </select>
+              </div>
+            )}
 
-            <div className="mx-2 flex-column">
-              <small className="mb-2 font-weight-bold">Filter </small>
-              <select name="" id="" className="form-control py-1 filter-option">
-                {this.props.filter.map((d, i) => (
-                  <option
-                    onChange={e =>
-                      this.setState({ filter: parseInt(e.target.value) })
+            {this.props.filter && (
+              <div className="mx-2 flex-column">
+                <small className="mb-2 font-weight-bold">Filter </small>
+                <select
+                  name=""
+                  id=""
+                  className="form-control py-1 filter-option"
+                  onChange={e => {
+                    let val = parseInt(e.target.value);
+                    if (val) {
+                      let item = {};
+                      item[this.props.filter[val].name] = this.props.filter[
+                        val
+                      ].value;
+
+                      this.setState({ filter: item });
+                    } else {
+                      this.setState({ filter: {} });
                     }
-                    value={d.value}
-                    key={i}>
-                    {d.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                  }}>
+                  {this.props.filter.map((d, i) => (
+                    <option value={i} key={i}>
+                      {d.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
           <div className="mx-2 flex-column">
             <small className="mb-2 font-weight-bold">Date range </small>
@@ -154,11 +171,11 @@ class Filter extends Component {
     if (this.state.zone !== 0) {
       filterData = {
         zone_id: this.state.zone
-        // dates: this.state.ranges
       };
-
-      this.props.getFilter(filterData);
     }
+    filterData = { ...filterData, ...this.state.filter };
+    // console.log(filterData);
+    this.props.getFilter(filterData);
   };
 }
 

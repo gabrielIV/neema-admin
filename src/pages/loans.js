@@ -21,10 +21,11 @@ class Users extends Component {
 
         <Filter
           filter={[
-            { name: "All clients", value: 0 },
-            { name: "Dormat clients", value: 20 },
-            { name: "New clients", value: 20 },
-            { name: "Served clients", value: 20 }
+            { label: "All", name: "All", value: 0 },
+            { label: "Created loans", name: "loan_status", value: 1 },
+            { label: "Active loans", name: "loan_status", value: 2 },
+            { label: "Repaid loans", name: "loan_status", value: 3 },
+            { label: "Defaulted loans", name: "loan_status", value: 4 }
           ]}
           getFilter={filter => {
             setTimeout(() => {
@@ -49,6 +50,7 @@ class Users extends Component {
   }
 
   fetchClients = () => {
+    console.log(this.state.query);
     this.setState({ tableError: false });
     let urlParams = Object.entries(this.state.query)
       .map(e => e.join("="))
