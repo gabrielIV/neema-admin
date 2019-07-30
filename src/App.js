@@ -45,8 +45,24 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/login" component={Login} />
-        {(this.state.loaded || !localStorage.token) && (
+        {this.state.loaded || !localStorage.token ? (
           <Route path="/" component={Portal} />
+        ) : (
+          <div
+            className={
+              "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader"
+            }>
+            <div class="lds-roller">
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
         )}
       </Switch>
     );
@@ -102,7 +118,6 @@ class Portal extends Component {
   render() {
     if (typeof localStorage.token === "undefined") {
       this.props.history.push("/login");
-      alert("undefined");
     }
     return (
       <div id="wrapper">
