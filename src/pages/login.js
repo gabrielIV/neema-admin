@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../img/amana-logo.png";
+// import logo from "../img/amana-logo.png";
 
 class Login extends Component {
   state = { custom: true };
@@ -111,7 +111,8 @@ class Login extends Component {
           localStorage.token = response.accessToken;
           window.user = response;
           localStorage.user = JSON.stringify(window.user);
-          this.props.history.push("/");
+          window.location = "/";
+          // this.props.history.push("/");
         }
       })
       .catch(() => {

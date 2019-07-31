@@ -28,6 +28,8 @@ import clientAdd from "./pages/clientAdd";
 import BranchManagers from "./pages/branchManagers";
 import ClientView from "./pages/clientView";
 import LoanAdd from "./pages/loanAdd";
+import _403 from "./img/403.png";
+import _500 from "./img/500.jpg";
 
 // Configs
 window.server = "http://197.254.22.228:3030";
@@ -40,30 +42,15 @@ if (localStorage.token) {
 }
 
 class App extends Component {
-  state = { loaded: false };
+  state = { loaded: false, status: 0, errorload: false };
   render() {
     return (
       <Switch>
         <Route path="/login" component={Login} />
-        {this.state.loaded || !localStorage.token ? (
+        {(this.state.loaded || !localStorage.token) && (
           <Route path="/" component={Portal} />
-        ) : (
-          <div
-            className={
-              "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader"
-            }>
-            <div class="lds-roller">
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-          </div>
         )}
+        {this.getStatus(this.state.status, this.state.errorload)}
       </Switch>
     );
   }
@@ -77,6 +64,15 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(response => {
+        console.log(response);
+        if (response.code) {
+          this.setState({
+            status: response.code,
+            completeload: true,
+            errorload: true
+          });
+          return false;
+        }
         window.zones = [
           { id: 0, zone_name: "ALL", zone_code: "ALL", branch_id: 0 },
           ...response.data
@@ -109,7 +105,42 @@ class App extends Component {
 
   checkStatus = () => {
     // console.log(window.zones, window.branches);
-    if (window.zones && window.branches) this.setState({ loaded: true });
+    if (window.zones && window.branches)
+      this.setState({ loaded: true, errorload: true });
+  };
+
+  getStatus = () => {
+    if (!this.state.errorload)
+      return (
+        <div className="loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader">
+          <div class="lds-roller">
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        </div>
+      );
+
+    if (this.state.status !== 0 && this.state.status !== 0) {
+      if (this.state.status === 403) {
+        return (
+          <div className="loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader">
+            <img src={_403} alt="" />
+          </div>
+        );
+      } else {
+        return (
+          <div className="loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader">
+            <img src={_500} alt="" />
+          </div>
+        );
+      }
+    }
   };
 }
 
