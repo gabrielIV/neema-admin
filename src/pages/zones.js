@@ -3,6 +3,7 @@ import Table from "../components/Table";
 import Filter from "../components/filter";
 import { Plus } from "react-feather";
 import { Link } from "react-router-dom";
+import Chart from "../components/chart";
 
 class Zones extends Component {
   state = { tableData: { data: [] }, tableError: false, query: {} };
@@ -13,10 +14,141 @@ class Zones extends Component {
         <div className="d-flex flex-row align-items-center justify-content-between">
           <h3 className="font-weight-bold">Zones</h3>
           <Link
-            to="/clientAdd"
+            to="/zoneAdd"
             className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary btn-sm btn-round">
             <Plus size={18} /> <span className="pl-1">Create a New Zone</span>
           </Link>
+        </div>
+
+        <div className="col-md-6 my-5">
+          <Chart
+            title="Zones perfomance"
+            filters={
+              <div class="d-flex flex-row">
+                <div class="mx-2 flex-column">
+                  <small class="mb-2 font-weight-bold">Branch </small>
+                  <select name="" id="" class="form-control py-1 filter-option">
+                    <option value="0">ALL</option>
+                    <option value="1">NAIROBI</option>
+                    <option value="2">BranchNAME</option>
+                    <option value="3">BranchNAME</option>
+                    <option value="4">BranchNAME</option>
+                  </select>
+                </div>
+                <div class="mx-2 flex-column">
+                  <small class="mb-2 font-weight-bold">Zone </small>
+                  <select name="" id="" class="form-control py-1 filter-option">
+                    <option value="0">ALL</option>
+                    <option value="1">ONFON ZONE</option>
+                    <option value="2">TESTNAME</option>
+                    <option value="3">TESTNAME</option>
+                    <option value="4">TESTNAME</option>
+                  </select>
+                </div>
+              </div>
+            }
+            datasets={[
+              {
+                fill: false,
+                label: "Branch 1",
+                backgroundColor: "white",
+                data: [
+                  7054,
+                  7063,
+                  7454,
+                  7661,
+                  7875,
+                  8056,
+                  9158,
+                  9504,
+                  9613,
+                  9636,
+                  9742,
+                  9760
+                ]
+              },
+              {
+                fill: false,
+                label: "Branch 2",
+                borderColor: "#f44336",
+                backgroundColor: "white",
+                data: [
+                  7020,
+                  7127,
+                  7293,
+                  7329,
+                  7544,
+                  7631,
+                  7772,
+                  8688,
+                  8853,
+                  8969,
+                  9779,
+                  9924
+                ]
+              },
+              {
+                fill: false,
+                label: "Branch 3",
+                borderColor: "#E91E63",
+                backgroundColor: "white",
+                data: [
+                  7116,
+                  7384,
+                  7586,
+                  7948,
+                  8271,
+                  8307,
+                  8573,
+                  8740,
+                  9009,
+                  9111,
+                  9620,
+                  9887
+                ]
+              },
+              {
+                fill: false,
+                label: "Branch 3",
+                borderColor: "#673AB7",
+                backgroundColor: "white",
+                data: [
+                  7306,
+                  7517,
+                  7576,
+                  7888,
+                  7940,
+                  7978,
+                  8225,
+                  8314,
+                  8427,
+                  9088,
+                  9346,
+                  9487
+                ]
+              },
+              {
+                fill: false,
+                label: "Branch 3",
+                borderColor: "#2196F3",
+                backgroundColor: "white",
+                data: [
+                  7394,
+                  7549,
+                  7987,
+                  8392,
+                  8406,
+                  8414,
+                  9106,
+                  9407,
+                  9817,
+                  9822,
+                  9877,
+                  9886
+                ]
+              }
+            ]}
+          />
         </div>
 
         <Filter

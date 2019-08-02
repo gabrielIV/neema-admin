@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Form from "../components/form";
+import Form from "../../components/form";
 import { X, Trash, Plus } from "react-feather";
 import { Route, Link, Switch } from "react-router-dom";
 
 class clientAdd extends Component {
-  state = { activeSlide: 0, files: [] };
+  state = { activeSlide: 3, files: [] };
   render() {
     return (
       <div>
@@ -111,6 +111,7 @@ class clientAdd extends Component {
                     type="file"
                     placeholder="..."
                     class="form-control p-1"
+                    value=""
                     accept="image/*"
                     onChange={e => {
                       this.setState({
@@ -148,6 +149,7 @@ class clientAdd extends Component {
                         type="file"
                         placeholder="..."
                         class="form-control p-1 d-none"
+                        value=""
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -178,6 +180,7 @@ class clientAdd extends Component {
                         type="file"
                         placeholder="..."
                         class="form-control p-1 d-none"
+                        value=""
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -233,13 +236,21 @@ class clientAdd extends Component {
               <div class="container">
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Business Name</span>
-                  <input placeholder="..." class="form-control text-input" />
+                  <input
+                    placeholder="..."
+                    class="form-control text-input"
+                    value="Business"
+                  />
                 </div>
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">
                     Business Registration Number
                   </span>
-                  <input placeholder="..." class="form-control text-input" />
+                  <input
+                    placeholder="..."
+                    class="form-control text-input"
+                    value="112345678"
+                  />
                 </div>
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Business Description</span>
@@ -247,59 +258,47 @@ class clientAdd extends Component {
                     type="textarea"
                     placeholder="..."
                     class="form-control text-input"
+                    value="We sell men's  shoes"
                   />
                 </div>
-                <hr class="my-4 mx-3" />
-
                 <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Location Description</span>
-                  <input placeholder="..." class="form-control text-input" />
+                  <span class="ml-1 mb-2 d-block">Physical address</span>
+                  <input
+                    placeholder="..."
+                    class="form-control text-input"
+                    value="Nairobu CBD"
+                  />
                 </div>
-                <div className="d-flex flex-row">
-                  <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block font-weight-bold">
-                      Business location
-                    </span>
-                    <div className="map-card card">
-                      <iframe
-                        title="document-map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7337109204586!2d36.891327514958746!3d-1.336003499025586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1273fbf5e9f3%3A0x3333f1e957f8404f!2sOnfon+Media+Ltd!5e0!3m2!1sen!2ske!4v1564652443634!5m2!1sen!2ske"
-                        frameborder="0"
-                        allowfullscreen
-                        className="h-100"
-                      />
+
+                <div className="ml-3">
+                  <span class="ml-1 mb-2 d-block">Store Front Photo</span>
+                  <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <input
+                      type="file"
+                      placeholder="..."
+                      class="form-control p-1 d-none"
+                      value=""
+                      accept="image/*"
+                      onChange={e => {
+                        this.setState({
+                          StoreFront: e.target.files[0]
+                        });
+                      }}
+                    />
+
+                    <div className="d-flex flex-row align-items-center text-dark">
+                      <Plus />
+                      <h5 className="ml-2 mb-0">Chooose a file</h5>
                     </div>
-                  </div>
 
-                  <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block">Store Front Photo</span>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
-                      <input
-                        type="file"
-                        placeholder="..."
-                        class="form-control p-1 d-none"
-                        accept="image/*"
-                        onChange={e => {
-                          this.setState({
-                            StoreFront: e.target.files[0]
-                          });
-                        }}
+                    {this.state.StoreFront && (
+                      <img
+                        src={URL.createObjectURL(this.state.StoreFront)}
+                        className="id-img"
+                        alt=""
                       />
-
-                      <div className="d-flex flex-row align-items-center text-dark">
-                        <Plus />
-                        <h5 className="ml-2 mb-0">Chooose a file</h5>
-                      </div>
-
-                      {this.state.StoreFront && (
-                        <img
-                          src={URL.createObjectURL(this.state.StoreFront)}
-                          className="id-img"
-                          alt=""
-                        />
-                      )}
-                    </label>
-                  </div>
+                    )}
+                  </label>
                 </div>
 
                 <div class=" my-3 d-flex flex-row justify-content-between mt-5">
@@ -320,11 +319,18 @@ class clientAdd extends Component {
               <div class="container">
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Guarantor Name</span>
-                  <input placeholder="..." class="form-control text-input" />
+                  <input
+                    placeholder="..."
+                    class="form-control text-input"
+                    value="william"
+                  />
                 </div>
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Identification Type</span>
-                  <select class="form-control" />
+                  <select class="form-control">
+                    <option value="1">Identity Card</option>
+                    <option value="2">Passport Number</option>
+                  </select>
                 </div>
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Identification</span>
@@ -332,11 +338,16 @@ class clientAdd extends Component {
                     type="textarea"
                     placeholder="..."
                     class="form-control text-input"
+                    value="33331993"
                   />
                 </div>
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Description</span>
-                  <textarea placeholder="..." class="form-control text-input" />
+                  <textarea
+                    placeholder="..."
+                    class="form-control text-input"
+                    value="..."
+                  />
                 </div>
                 <hr class="my-4 mx-3" />
 
@@ -350,6 +361,7 @@ class clientAdd extends Component {
                         type="file"
                         placeholder="..."
                         class="form-control p-1 d-none"
+                        value=""
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -382,6 +394,7 @@ class clientAdd extends Component {
                         type="file"
                         placeholder="..."
                         class="form-control p-1 d-none"
+                        value=""
                         accept="image/*"
                         onChange={e => {
                           this.setState({

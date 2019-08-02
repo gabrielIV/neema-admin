@@ -48,24 +48,24 @@ class Table extends Component {
           </div>
 
           <div className="d-flex flex-fill tb-cover position-relative">
-            {/* {this.state.tableLoading && ( */}
-            <div
-              className={
-                "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center " +
-                (this.state.tableLoading ? "show-loader" : "")
-              }>
-              <div class="lds-roller">
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
+            {this.state.tableLoading && (
+              <div
+                className={
+                  "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center " +
+                  (this.state.tableLoading ? "show-loader" : "")
+                }>
+                <div class="lds-roller">
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                </div>
               </div>
-            </div>
-            {/* )} */}
+            )}
             <table className="table table-striped text-dark table-bordered table-hover">
               <thead>
                 <tr>

@@ -73,7 +73,8 @@ class Filter extends Component {
                   className="form-control py-1 filter-option"
                   onChange={e => {
                     let val = parseInt(e.target.value);
-                    if (val) {
+
+                    if (val !== 0) {
                       let item = {};
                       item[this.props.filter[val].name] = this.props.filter[
                         val
@@ -81,7 +82,7 @@ class Filter extends Component {
 
                       this.setState({ filter: item });
                     } else {
-                      this.setState({ filter: {} });
+                      this.setState({ filter: [] });
                     }
                   }}>
                   {this.props.filter.map((d, i) => (

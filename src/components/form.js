@@ -6,7 +6,7 @@ class Form extends Component {
   };
   render() {
     return (
-      <div className="py-3 bg-light border-top d-flex flex-fill">
+      <div className="pb-3 pt-5 bg-light border-top d-flex flex-fill">
         <div className="container">
           {this.state.inputs.map((d, i) => {
             let input;
@@ -22,9 +22,9 @@ class Form extends Component {
                     inputs[i].value = e.target.value;
                     this.setState({ inputs });
                   }}>
-                  {Object.keys(d.options).map((dt, ind) => (
-                    <option key={dt} value={d.options[dt]}>
-                      {dt}
+                  {d.options.map((dt, ind) => (
+                    <option key={ind} value={dt.value}>
+                      {dt.name}
                     </option>
                   ))}
                 </select>

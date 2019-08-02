@@ -1,27 +1,22 @@
 import React, { Component } from "react";
-import Table from "../components/Table";
-import Filter from "../components/filter";
+import Table from "../../components/Table";
+import Filter from "../../components/filter";
 import { Plus } from "react-feather";
 import { Link } from "react-router-dom";
 
-class Users extends Component {
+class ClientLoans extends Component {
   state = { tableData: { data: [] }, tableError: false, query: {} };
   timeout = null;
   render() {
     return (
       <div className="p-3 ">
-        <div className="d-flex flex-row align-items-center justify-content-between">
-          <h3 className="font-weight-bold">Officers</h3>
-          <Link
-            to="/officerAdd"
-            className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary btn-sm btn-round">
-            <Plus size={18} /> <span className="pl-1">Add an Officer</span>
-          </Link>
-        </div>
-
         <Filter
-          branches={true}
-          zone={true}
+          filter={[
+            { name: "All clients", value: 0 },
+            { name: "Dormat clients", value: 20 },
+            { name: "New clients", value: 20 },
+            { name: "Served clients", value: 20 }
+          ]}
           getFilter={filter => {
             setTimeout(() => {
               this.setState({
@@ -51,9 +46,9 @@ class Users extends Component {
       .join("&");
     console.log(urlParams);
     fetch(
-      `${window.server}/users?${Object.entries(this.state.query)
+      `${window.server}/loans?${Object.entries(this.state.query)
         .map(e => e.join("="))
-        .join("&")}&user_type=2`,
+        .join("&")}&user_id=${this.props.match.params.id}`,
       {
         headers: {
           Authorization: localStorage.token
@@ -64,24 +59,29 @@ class Users extends Component {
       .then(response => {
         console.log(response);
         let data = [];
+        let status = [
+          "",
+          <button className="btn btn-outline-primary btn-sm">
+            Loan Created
+          </button>,
+          <button className="btn btn-primary btn-sm">Loan Active</button>,
+          <button className="btn btn-success btn-sm">Loan Repaid</button>,
+          <button className="btn btn-danger btn-sm">Loan Defaulted</button>
+        ];
         response.data.map(d => {
           data.push({
-            "User ID": d.user_id,
-            "Agent ID": d.agent_id,
-            "Full Name": d.full_names,
-            email: d.email,
-            gender: ["", "Male", "Female"][d.gender_id],
-            identification: d.identification,
-            "Marital status": ["", "Single", "Married"][d.marital_status_id],
-            balance: d.balance,
-            // identification_type: 1,
-            "Phone Number": d.msisdn,
-            zone: d.zones[0].zone_name,
-            action: (
-              <>
-                <button className="btn btn-sm btn-primary">View</button>
-              </>
-            )
+            "Loan ID": d.loan_id,
+            "Client Name": d.client[0].full_names,
+            Amount: "kes " + d.loan_amount.toLocaleString(),
+            "Amount disbursed":
+              "kes " + d.loan_amount_disbursed.toLocaleString(),
+            "Amount paid": "kes " + d.loan_amount_paid.toLocaleString(),
+            "Loan Installments": d.loan_installments.toLocaleString(),
+            "Start Date": d.loan_start_date,
+            "End Date": d.loan_end_date,
+            "Last payment date": d.last_repayment_date,
+            "Loan Status": status[d.loan_status]
+            // agent_id: 1
           });
         });
         response.data = data;
@@ -105,4 +105,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default ClientLoans;

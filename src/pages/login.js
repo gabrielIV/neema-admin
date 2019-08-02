@@ -95,7 +95,9 @@ class Login extends Component {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json"
       },
-      body: `{"strategy": "local",  "msisdn": "${phone}", "password": "${password}"}`
+      body: `{"strategy": "local",  "msisdn": "${window.verifyNumber(
+        phone
+      )}", "password": "${password}"}`
     })
       .then(response => response.json())
       .then(response => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Form from "../components/form";
-import { DateRangePicker } from "react-date-range";
+import { DateRangePicker, Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import moment from "moment";
@@ -13,7 +13,9 @@ class LoanAdd extends Component {
       endDate: new Date(),
       key: "selection"
     },
-    dateVisible: false
+    dateVisible: false,
+    currentDate: new Date(),
+    collaterals: [1]
   };
   render() {
     return (
@@ -26,79 +28,155 @@ class LoanAdd extends Component {
             </small>
           </div>
         </div>
+        <div>
+          <div className="container">
+            <h3>1. Create loan</h3>
+          </div>
 
-        <div class="py-3 bg-light border-top d-flex flex-fill">
-          <div class="container ">
-            <div className="d-flex flex-row">
-              <div class="mx-3 d-inline-block mb-3">
-                <span class="ml-1 mb-2 d-block">Loan amout</span>
-                <input
-                  type="number"
-                  placeholder="..."
-                  class="form-control text-input"
-                  value="0"
-                />
-              </div>
-
-              <div className="d-block position-relative">
-                <div className="mx-2 flex-column">
-                  <span className="mb-2">Date range </span>
-                  <div
-                    className="form-control mt-2  d-flex flex-row align-items-center noselect"
-                    onClick={() => {
-                      this.setState({ dateVisible: true });
-                    }}>
-                    <span>
-                      <b>From</b>
-                      {moment(this.state.ranges.startDate).format(
-                        " MMMM Do YYYY "
-                      )}
-                      <b>&nbsp;&nbsp; To</b>
-                      {moment(this.state.ranges.endDate).format(
-                        " MMMM Do YYYY "
-                      )}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className={
-                    "card date-card " + (this.state.dateVisible ? "" : "d-none")
-                  }>
-                  <DateRangePicker
-                    ranges={[this.state.ranges]}
-                    onChange={ranges => this.updateDateRange(ranges)}
+          <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+            <div class="container ">
+              <div className="d-flex flex-row">
+                <div class="mx-3 d-inline-block mb-3">
+                  <span class="ml-1 mb-2 d-block">Loan amout</span>
+                  <input
+                    type="number"
+                    placeholder="..."
+                    class="form-control text-input"
                   />
+                </div>
 
-                  <div className="p-3 text-center d-flex flex-row justify-content-between">
-                    <button
+                <div className="d-block position-relative">
+                  <div className="mx-2 flex-column">
+                    <span className="mb-2">Start date </span>
+                    <div
+                      className="form-control mt-2  d-flex flex-row align-items-center noselect"
                       onClick={() => {
-                        this.setState({ dateVisible: false });
-                      }}
-                      className="btn btn-outline-danger btn-sm d-flex flex-row
+                        this.setState({ dateVisible: true });
+                      }}>
+                      <span>
+                        <b>From</b>
+                        {moment(this.state.currentDate).format(
+                          " Do MMMM YYYY "
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    className={
+                      "card date-card " +
+                      (this.state.dateVisible ? "" : "d-none")
+                    }>
+                    <Calendar
+                      // ranges={[this.state.ranges]}
+                      // onChange={ranges => this.updateDateRange(ranges)}
+                      date={this.state.currentDate}
+                      onChange={date => this.setState({ currentDate: date })}
+                    />
+
+                    <div className="p-3 text-center d-flex flex-row justify-content-between">
+                      <button
+                        onClick={() => {
+                          this.setState({ dateVisible: false });
+                        }}
+                        className="btn btn-outline-danger btn-sm d-flex flex-row
                 align-items-center align-self-center pr-4">
-                      <X size={18} /> <span className="ml-2">Cancel</span>
-                    </button>
+                        <X size={18} /> <span className="ml-2">Cancel</span>
+                      </button>
 
-                    <button
-                      onClick={() => {
-                        this.setState({ dateVisible: false });
-                      }}
-                      className="btn btn-primary btn-sm d-flex flex-row align-items-center align-self-center pr-4">
-                      <Check size={18} /> <span className="ml-2">Done</span>
-                    </button>
+                      <button
+                        onClick={() => {
+                          this.setState({ dateVisible: false });
+                        }}
+                        className="btn btn-primary btn-sm d-flex flex-row align-items-center align-self-center pr-4">
+                        <Check size={18} /> <span className="ml-2">Done</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div class=" my-3 d-flex flex-row justify-content-between mt-5">
-              <button class="btn btn-primary px-5  ml-3">Submit</button>
-              <button class="btn btn-outline-primary px-5  ml-5">
-                Reset form
-              </button>
+                <div class="mx-3 d-inline-block mb-3">
+                  <span class="ml-1 mb-2 d-block">Number of Days</span>
+                  <input
+                    type="number"
+                    placeholder="..."
+                    class="form-control text-input"
+                  />
+                </div>
+              </div>
+
+              <div class=" my-3 d-flex flex-row justify-content-between mt-5">
+                <button class="btn btn-primary px-5  ml-3">Submit</button>
+              </div>
             </div>
           </div>
         </div>
+
+        <div className="mt-5">
+          <div className="container">
+            <h3>2. Add loan Collateral</h3>
+          </div>
+
+          <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+            <div class="container">
+              {this.state.collaterals.map((d, i) => (
+                <div className="collateral-card p-3 mb-3">
+                  <div class="mx-3 d-inline-block mb-3">
+                    <span class="ml-1 mb-2 d-block">Item name</span>
+                    <input
+                      placeholder="..."
+                      class="form-control text-input"
+                      value=""
+                    />
+                  </div>
+                  <div class="mx-3 d-inline-block mb-3">
+                    <span class="ml-1 mb-2 d-block">Quantity</span>
+                    <input
+                      type="number"
+                      placeholder="..."
+                      class="form-control text-input"
+                      value=""
+                    />
+                  </div>
+                  <div class="mx-3 d-inline-block mb-3">
+                    <span class="ml-1 mb-2 d-block">Serial Number</span>
+                    <input
+                      placeholder="..."
+                      class="form-control text-input"
+                      value=""
+                    />
+                  </div>
+                  <div class="mx-3 d-inline-block mb-3">
+                    <span class="ml-1 mb-2 d-block">Total value</span>
+                    <input
+                      type="number"
+                      placeholder="..."
+                      class="form-control text-input"
+                      value=""
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="text-center mt-5">
+                <button
+                  class="btn btn-outline-primary px-5  ml-5"
+                  onClick={() => {
+                    let { collaterals } = this.state;
+                    collaterals.push(1);
+                    this.setState({
+                      collaterals
+                    });
+                  }}>
+                  Add collateral Item
+                </button>
+              </div>
+
+              <div class=" my-3 d-flex flex-row justify-content-between mt-5">
+                <button class="btn btn-primary px-5  ml-3">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div
           onClick={() => {
             this.setState({ dateVisible: false });

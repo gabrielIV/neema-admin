@@ -30,11 +30,29 @@ import ClientView from "./pages/clientView";
 import LoanAdd from "./pages/loanAdd";
 import _403 from "./img/403.png";
 import _500 from "./img/500.jpg";
+import clientEdit from "./pages/clients/clientEdit";
+import loanView from "./pages/loanVIew";
+import branchManagersAdd from "./pages/branchManagersAdd";
+import branchManagerView from "./pages/branchManagerView";
+import officerAdd from "./pages/officerAdd";
+import zoneAdd from "./pages/zoneAdd";
+import branchAdd from "./pages/branchAdd";
 
 // Configs
 window.server = "http://197.254.22.228:3030";
 
+// window.zones = [];
+// window.branches = [];
+
 // end Configs
+window.verifyNumber = n => {
+  n = n + "";
+  if (n[0] + n[1] + n[2] === "254") {
+    return parseInt(n);
+  } else {
+    return parseInt("254" + parseInt(n));
+  }
+};
 
 if (localStorage.token) {
   window.user = JSON.parse(localStorage.user);
@@ -101,11 +119,30 @@ class App extends Component {
       .catch(d => {
         console.log(d);
       });
+
+    // fetch accounts
+    fetch(`${window.server}/accounts`, {
+      headers: {
+        Authorization: localStorage.token
+      }
+    })
+      .then(response => response.json())
+      .then(response => {
+        // console.log(response);
+        window.accounts = [
+          { account_type_id: 0, description: "ALL", balance: 0 },
+          ...response.data
+        ];
+        this.checkStatus();
+      })
+      .catch(d => {
+        console.log(d);
+      });
   };
 
   checkStatus = () => {
     // console.log(window.zones, window.branches);
-    if (window.zones && window.branches)
+    if (window.zones && window.branches && window.accounts)
       this.setState({ loaded: true, errorload: true });
   };
 
@@ -220,12 +257,26 @@ class Portal extends Component {
           </li>
 
           <li className="nav-item">
-            <Link
+            <div
               to="/notifications"
               className="nav-link d-flex flex-row align-items-center">
               <Bell color="white" size={18} />
               <span className="text-white ml-2">Notifications</span>
-            </Link>
+            </div>
+            <div
+              id="collapseUtilities"
+              class="collapse show"
+              aria-labelledby="headingUtilities"
+              data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <Link class="collapse-item" to="/sms">
+                  SMS
+                </Link>
+                <Link class="collapse-item" to="/emails">
+                  Emails
+                </Link>
+              </div>
+            </div>
           </li>
 
           <li className="nav-item">
@@ -309,15 +360,28 @@ class Portal extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/clients" exact component={Users} />
             <Route path="/clientAdd" exact component={clientAdd} />
-            <Route path="/clientView/:path/:id" component={ClientView} />
+            <Route path="/officerAdd" exact component={officerAdd} />
+            <Route
+              path="/branchManagerView/:path/:id"
+              component={branchManagerView}
+            />
+            <Route path="/clientEdit" component={clientEdit} />
             <Route path="/loans" exact component={Loans} />
-            <Route path="/loanAdd/:id" exact component={LoanAdd} />
+            <Route path="(/loanAdd|/loanAdd/:id)" component={LoanAdd} />
+            <Route path="/loanView/:id" exact component={loanView} />
             <Route path="/transactions" exact component={Transactions} />
             <Route path="/notifications" exact component={Notifications} />
             <Route path="/officers" exact component={Officers} />
             <Route path="/branches" exact component={Branches} />
+            <Route path="/branchAdd" exact component={branchAdd} />
             <Route path="/zones" exact component={Zones} />
+            <Route path="/zoneAdd" exact component={zoneAdd} />
             <Route path="/branchManagers" exact component={BranchManagers} />
+            <Route
+              path="/branchManagersAdd"
+              exact
+              component={branchManagersAdd}
+            />
           </div>
         </div>
       </div>
