@@ -35,7 +35,7 @@ class LoanAdd extends Component {
 
           <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
             <div class="container ">
-              <div className="d-flex flex-row">
+              <div className="d-flex flex-row flex-wrap">
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Loan amout</span>
                   <input
@@ -96,6 +96,15 @@ class LoanAdd extends Component {
 
                 <div class="mx-3 d-inline-block mb-3">
                   <span class="ml-1 mb-2 d-block">Number of Days</span>
+                  <input
+                    type="number"
+                    placeholder="..."
+                    class="form-control text-input"
+                  />
+                </div>
+
+                <div class="mx-3 d-inline-block mb-3">
+                  <span class="ml-1 mb-2 d-block">Choose a loan officer</span>
                   <input
                     type="number"
                     placeholder="..."

@@ -62,6 +62,12 @@ class ClientView extends Component {
               className="tab-link mr-3 p-3 position-relative font-weight-bold">
               <span>TRANSCATIONS</span>
             </Link>
+
+            <Link
+              to={"/branchManagerView/perfomance/" + this.props.match.params.id}
+              className="tab-link mr-3 p-3 position-relative font-weight-bold">
+              <span>PERFOMANCE</span>
+            </Link>
           </div>
         </div>
         <div className="tabs">

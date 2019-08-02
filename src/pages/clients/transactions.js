@@ -58,33 +58,36 @@ class ClientTransactions extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        // let data = [];
-        // let status = [
-        //   "",
-        //   <button className="btn btn-outline-primary btn-sm">
-        //     Loan Created
-        //   </button>,
-        //   <button className="btn btn-primary btn-sm">Loan Active</button>,
-        //   <button className="btn btn-success btn-sm">Loan Repaid</button>,
-        //   <button className="btn btn-danger btn-sm">Loan Defaulted</button>
-        // ];
-        // response.data.map(d => {
-        //   data.push({
-        //     "Loan ID": d.loan_id,
-        //     "Client Name": d.client[0].full_names,
-        //     Amount: "kes " + d.loan_amount.toLocaleString(),
-        //     "Amount disbursed":
-        //       "kes " + d.loan_amount_disbursed.toLocaleString(),
-        //     "Amount paid": "kes " + d.loan_amount_paid.toLocaleString(),
-        //     "Loan Installments": d.loan_installments.toLocaleString(),
-        //     "Start Date": d.loan_start_date,
-        //     "End Date": d.loan_end_date,
-        //     "Last payment date": d.last_repayment_date,
-        //     "Loan Status": status[d.loan_status]
-        //     // agent_id: 1
-        //   });
-        // });
-        // response.data = data;
+        let data = [];
+        let status = [
+          "",
+          <button className="btn btn-outline-primary btn-sm">
+            Loan Created
+          </button>,
+          <button className="btn btn-primary btn-sm">Loan Active</button>,
+          <button className="btn btn-success btn-sm">Loan Repaid</button>,
+          <button className="btn btn-danger btn-sm">Loan Defaulted</button>
+        ];
+        response.data.map(d => {
+          data.push({
+            Time: d.created_at,
+            transaction_id: d.transaction_id,
+            description: d.description,
+            "Cash Out": d.dr,
+            "Cash in": d.cr,
+            "New Balance": d.new_bal
+            // id: 1,
+            // account_id: 2,
+            // loan_id: "LIHO2YTNZ",
+            // user_id: "UMQ99A7F7UTZ3",
+            // prev_bal: 0,
+            // account_prev_bal: 100000,
+            // account_new_bal: 102000,
+            // updated_at: "2019-08-01T10:39:28.000Z"
+            // agent_id: 1
+          });
+        });
+        response.data = data;
         this.setState({ tableData: response });
       })
       .catch(d => {

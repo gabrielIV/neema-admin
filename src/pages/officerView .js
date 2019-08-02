@@ -4,8 +4,9 @@ import Details from "./clients/details";
 import { Plus } from "react-feather";
 import ClientLoans from "./clients/loans";
 import ClientTransactions from "./clients/transactions";
+import Perfomance from "./clients/perfomance";
 
-class ClientView extends Component {
+class OfficerView extends Component {
   state = {};
   render() {
     return (
@@ -46,32 +47,46 @@ class ClientView extends Component {
         <div className=" border-bottom">
           <div className="tab-links d-flex flex-row mr-5">
             <Link
-              to={"/clientView/details/" + this.props.match.params.id}
+              to={"/officerView/details/" + this.props.match.params.id}
               className="tab-link mr-3 p-3 position-relative font-weight-bold active">
               <span>DETAILS</span>
             </Link>
 
             <Link
-              to={"/clientView/loans/" + this.props.match.params.id}
+              to={"/officerView/loans/" + this.props.match.params.id}
               className="tab-link mr-3 p-3 position-relative font-weight-bold">
               <span>LOANS</span>
             </Link>
 
             <Link
-              to={"/clientView/transactions/" + this.props.match.params.id}
+              to={"/officerView/transactions/" + this.props.match.params.id}
               className="tab-link mr-3 p-3 position-relative font-weight-bold">
               <span>TRANSCATIONS</span>
+            </Link>
+            <Link
+              to={"/officerView/perfomance/" + this.props.match.params.id}
+              className="tab-link mr-3 p-3 position-relative font-weight-bold">
+              <span>PERFOMANCE</span>
             </Link>
           </div>
         </div>
         <div className="tabs">
           <div className="tab">
-            <Route path="/clientView/details/:id" exact component={Details} />
-            <Route path="/clientView/loans/:id" exact component={ClientLoans} />
+            <Route path="/officerView/details/:id" exact component={Details} />
             <Route
-              path="/clientView/transactions/:id"
+              path="/officerView/loans/:id"
+              exact
+              component={ClientLoans}
+            />
+            <Route
+              path="/officerView/transactions/:id"
               exact
               component={ClientTransactions}
+            />
+            <Route
+              path="/officerView/perfomance/:id"
+              exact
+              component={Perfomance}
             />
           </div>
         </div>
@@ -102,4 +117,4 @@ class ClientView extends Component {
   };
 }
 
-export default ClientView;
+export default OfficerView;

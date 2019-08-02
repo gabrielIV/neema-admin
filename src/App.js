@@ -37,6 +37,8 @@ import branchManagerView from "./pages/branchManagerView";
 import officerAdd from "./pages/officerAdd";
 import zoneAdd from "./pages/zoneAdd";
 import branchAdd from "./pages/branchAdd";
+import SMS from "./pages/sms";
+import OfficerView from "./pages/officerView ";
 
 // Configs
 window.server = "http://197.254.22.228:3030";
@@ -365,6 +367,7 @@ class Portal extends Component {
               path="/branchManagerView/:path/:id"
               component={branchManagerView}
             />
+            <Route path="/clientView/:path/:id" component={ClientView} />
             <Route path="/clientEdit" component={clientEdit} />
             <Route path="/loans" exact component={Loans} />
             <Route path="(/loanAdd|/loanAdd/:id)" component={LoanAdd} />
@@ -372,9 +375,15 @@ class Portal extends Component {
             <Route path="/transactions" exact component={Transactions} />
             <Route path="/notifications" exact component={Notifications} />
             <Route path="/officers" exact component={Officers} />
+            <Route
+              path="/officerView/:path/:id"
+              exact
+              component={OfficerView}
+            />
             <Route path="/branches" exact component={Branches} />
             <Route path="/branchAdd" exact component={branchAdd} />
             <Route path="/zones" exact component={Zones} />
+            <Route path="/sms" exact component={SMS} />
             <Route path="/zoneAdd" exact component={zoneAdd} />
             <Route path="/branchManagers" exact component={BranchManagers} />
             <Route
