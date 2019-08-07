@@ -1,18 +1,74 @@
 import React, { Component } from "react";
 import Table from "../components/Table";
 import Filter from "../components/filter";
-import { Plus } from "react-feather";
+import { Plus, Circle } from "react-feather";
 import { Link } from "react-router-dom";
 import Chart from "../components/chart";
 
 class Loans extends Component {
-  state = { tableData: { data: [] }, tableError: false, query: {}, filter: {} };
+  state = {
+    tableData: { data: [] },
+    tableError: false,
+    query: {},
+    filter: {},
+    status: [
+      {
+        value: 1,
+        label: "Total Loans",
+        number: 2400,
+        amount: "",
+        color: "material-blue"
+      },
+      {
+        value: 1,
+        label: "Active Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-green"
+      },
+      {
+        value: 1,
+        label: "Prepaid Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-teal"
+      },
+      {
+        value: 1,
+        label: "Inactive Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-orange"
+      },
+      {
+        value: 1,
+        label: "Dormant Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-deep-orange"
+      },
+      {
+        value: 1,
+        label: "Defaulted Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-red"
+      },
+      {
+        value: 1,
+        label: "Pending Loans",
+        number: 2400,
+        amount: 40000,
+        color: "material-deep-purple"
+      }
+    ]
+  };
   timeout = null;
   render() {
     return (
       <div className="p-3 ">
         <div className="d-flex flex-row align-items-center justify-content-between">
-          <h3 className="font-weight-bold">Loans</h3>
+          <h2 className="">Loans</h2>
           <Link
             to={"/loanAdd/"}
             className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary  btn-round">
@@ -20,41 +76,42 @@ class Loans extends Component {
           </Link>
         </div>
 
-        <div class="row mb-5 text-center mt-5">
-          <div class="col-md-3">
-            <div class="card icon tex-">
-              <h1 class="text-center p-2">5,000</h1>
-              <div class="card-header">Total Disbursed loans</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card icon tex-">
-              <h1 class="text-center p-2">3,000</h1>
-              <div class="card-header">Active loans</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card icon tex-">
-              <h1 class="text-center p-2">2,430</h1>
-              <div class="card-header">Repaid loans</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card icon ">
-              <h1 class="text-center p-2">2,080</h1>
-              <div class="card-header">Defaulted loans</div>
-            </div>
-          </div>
+        <div className="row my-5 justify-content-center align-items-start">
+          {this.state.status.map(d => (
+            <Link
+              to={"/loanStatus/" + d.value}
+              className="col-md-3 mb-3 icon btn">
+              <div className={"card client-status text-white " + d.color}>
+                <div className="card-header trg-header d-flex flex-row align-items-center justify-content-between">
+                  <Circle className="" />
+                  <span className="title font-weight-bold">{d.label}</span>
+                  <Circle className="opacity-0" />
+                </div>
+                <div className="card-body text-white text-center">
+                  <h3 className="font-weight-bold">
+                    {d.number.toLocaleString()}
+                  </h3>
+                  {d.amount !== "" && (
+                    <span>Kshs {d.amount.toLocaleString()} Total</span>
+                  )}
+                  {d.amount === "" && <br />}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
 
         <div className="col-md-6 my-5">
           <Chart
             title="Loans perfomance Analysis"
             filters={
-              <div class="d-flex flex-row">
-                <div class="mx-2 flex-column">
-                  <small class="mb-2 font-weight-bold">Branch </small>
-                  <select name="" id="" class="form-control py-1 filter-option">
+              <div className="d-flex flex-row">
+                <div className="mx-2 flex-column">
+                  <small className="mb-2 font-weight-bold">Branch </small>
+                  <select
+                    name=""
+                    id=""
+                    className="form-control py-1 filter-option">
                     <option value="0">ALL</option>
                     <option value="1">NAIROBI</option>
                     <option value="2">BranchNAME</option>
@@ -62,9 +119,12 @@ class Loans extends Component {
                     <option value="4">BranchNAME</option>
                   </select>
                 </div>
-                <div class="mx-2 flex-column">
-                  <small class="mb-2 font-weight-bold">Zone </small>
-                  <select name="" id="" class="form-control py-1 filter-option">
+                <div className="mx-2 flex-column">
+                  <small className="mb-2 font-weight-bold">Zone </small>
+                  <select
+                    name=""
+                    id=""
+                    className="form-control py-1 filter-option">
                     <option value="0">ALL</option>
                     <option value="1">ONFON ZONE</option>
                     <option value="2">TESTNAME</option>
@@ -136,34 +196,6 @@ class Loans extends Component {
                 ]
               }
             ]}
-          />
-        </div>
-
-        <Filter
-          filter={[
-            { label: "All", name: "All", value: 0 },
-            { label: "Created loans", name: "loan_status", value: 1 },
-            { label: "Active loans", name: "loan_status", value: 2 },
-            { label: "Repaid loans", name: "loan_status", value: 3 },
-            { label: "Defaulted loans", name: "loan_status", value: 4 }
-          ]}
-          getFilter={filter => {
-            console.log(filter);
-            setTimeout(() => {
-              this.setState({
-                filter: { ...filter }
-              });
-              // console.log(this.state);
-            }, 0);
-          }}
-        />
-        <div className="mt-4">
-          <Table
-            data={this.state.tableData}
-            fetch={params => {
-              this.setState({ query: { ...this.state.query, ...params } });
-            }}
-            fetchError={this.state.tableError}
           />
         </div>
       </div>

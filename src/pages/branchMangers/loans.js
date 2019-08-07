@@ -4,7 +4,7 @@ import Filter from "../../components/filter";
 import { Plus } from "react-feather";
 import { Link } from "react-router-dom";
 
-class ClientLoans extends Component {
+class BranchLoans extends Component {
   state = { tableData: { data: [] }, tableError: false, query: {} };
   timeout = null;
   render() {
@@ -105,4 +105,4 @@ class ClientLoans extends Component {
   }
 }
 
-export default ClientLoans;
+export default BranchLoans;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Search, Edit, Trash, Pause } from "react-feather";
+import { Search, Edit, Trash, Pause, Slash } from "react-feather";
 
 class Table extends Component {
   // eslint-disable-next-line
@@ -49,12 +49,8 @@ class Table extends Component {
 
           <div className="d-flex flex-fill tb-cover position-relative">
             {this.state.tableLoading && (
-              <div
-                className={
-                  "loader h-100 w-100 d-flex flex-row align-items-center justify-content-center " +
-                  (this.state.tableLoading ? "show-loader" : "")
-                }>
-                <div class="lds-roller">
+              <div className="loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader ">
+                <div className="lds-roller">
                   <div />
                   <div />
                   <div />
@@ -66,6 +62,16 @@ class Table extends Component {
                 </div>
               </div>
             )}
+
+            {!this.state.tableLoading && !this.state.data.length && (
+              <div className="w-100 h-100 empty-holder bg-light d-flex flex-row align-items-center justify-content-center">
+                <div className="text-muted d-flex flex-column align-items-center">
+                  <Slash size={30} />
+                  <span className="mt-3">No Data</span>
+                </div>
+              </div>
+            )}
+
             <table className="table table-striped text-dark table-bordered table-hover">
               <thead>
                 <tr>

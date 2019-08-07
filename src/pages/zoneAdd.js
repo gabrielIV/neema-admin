@@ -16,37 +16,37 @@ class zoneAdd extends Component {
         </div>
         {this.state.activeSlide === 0 && (
           <div className="">
-            <div class="">
-              <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
-                <div class="container">
-                  <div class="mx-2 d-inline-block">
-                    <span class="mb-2 ">Branch </span>
-                    <select name="" id="" class="form-control py-1">
+            <div className="">
+              <div className="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+                <div className="container">
+                  <div className="mx-2 d-inline-block">
+                    <span className="mb-2 ">Branch </span>
+                    <select name="" id="" className="form-control py-1">
                       <option value="1">NAIROBI</option>
                       <option value="2">BranchNAME</option>
                       <option value="3">BranchNAME</option>
                       <option value="4">BranchNAME</option>
                     </select>
                   </div>
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Zone Name</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Zone Name</span>
                     <input
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Zone Code</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Zone Code</span>
                     <input
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
-                  <div class=" my-3 d-flex flex-row justify-content-between mt-5">
-                    <button class="btn btn-primary px-5  ml-3">Submit</button>
-                    <button class="btn btn-outline-primary px-5  ml-5">
+                  <div className=" my-3 d-flex flex-row justify-content-between mt-5">
+                    <button className="btn btn-primary px-5  ml-3">Submit</button>
+                    <button className="btn btn-outline-primary px-5  ml-5">
                       Reset form
                     </button>
                   </div>

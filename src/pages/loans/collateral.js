@@ -6,7 +6,7 @@ import * as moment from "moment";
 
 import Table from "../../components/Table";
 
-class clientTransactions extends Component {
+class loanCollateral extends Component {
   state = { data: [{}], tableData: [] };
   render() {
     return (
@@ -54,10 +54,11 @@ class clientTransactions extends Component {
     let urlParams = Object.entries(this.state.query)
       .map(e => e.join("="))
       .join("&");
+
     let id = this.props.match.params.id;
-    console.log(urlParams);
+
     fetch(
-      `${window.server}/transactions?${Object.entries(this.state.query)
+      `${window.server}/collaterals?${Object.entries(this.state.query)
         .map(e => e.join("="))
         .join("&")}&loan_id=${id}`,
       {
@@ -68,29 +69,8 @@ class clientTransactions extends Component {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
-        let data = [];
+        // console.log(response);
 
-        response.data.map(d => {
-          data.push({
-            Time: moment(d.created_at).format("Do MMMM YYYY, h:mm:ss a"),
-            transaction_id: d.transaction_id,
-            description: d.description,
-            "Cash Out": d.dr,
-            "Cash in": d.cr,
-            "New Balance": d.new_bal
-            // id: 1,
-            // account_id: 2,
-            // loan_id: "LIHO2YTNZ",
-            // user_id: "UMQ99A7F7UTZ3",
-            // prev_bal: 0,
-            // account_prev_bal: 100000,
-            // account_new_bal: 102000,
-            // updated_at: "2019-08-01T10:39:28.000Z"
-            // agent_id: 1
-          });
-        });
-        response.data = data;
         this.setState({ tableData: response });
       })
       .catch(d => {
@@ -111,4 +91,4 @@ class clientTransactions extends Component {
   }
 }
 
-export default clientTransactions;
+export default loanCollateral;

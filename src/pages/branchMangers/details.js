@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Details extends Component {
+class BranchManagerDetails extends Component {
   state = { data: [{}] };
   render() {
     return (
@@ -45,7 +45,7 @@ class Details extends Component {
             balance: d.balance,
             // identification_type: 1,
             "Phone Number": d.msisdn,
-            zone: d.zones[0].zone_name
+            zone: d.zone.zone_name
           });
         });
         response.data = data;
@@ -58,4 +58,4 @@ class Details extends Component {
   };
 }
 
-export default Details;
+export default BranchManagerDetails;

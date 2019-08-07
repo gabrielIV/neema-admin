@@ -1,22 +1,49 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import Details from "./clients/details";
-import { Plus } from "react-feather";
+import { Plus, Circle } from "react-feather";
 import ClientLoans from "./clients/loans";
 import ClientTransactions from "./clients/transactions";
-import Perfomance from "./clients/perfomance";
+import Tabs from "../components/tabs";
+import BranchLoans from "./branchMangers/loans";
+import BranchOfficers from "./branchMangers/officers";
+import BranchManagerDetails from "./branchMangers/details";
 
-class branchManagerView extends Component {
-  state = {};
+class ClientView extends Component {
+  state = {
+    currentRoute: "",
+    status: [
+      {
+        value: 1,
+        label: "Target",
+        number: 2400,
+        amount: 40000,
+        color: "material-blue"
+      },
+      {
+        value: 1,
+        label: "Sales",
+        number: 2400,
+        amount: 40000,
+        color: "material-green"
+      },
+      {
+        value: 1,
+        label: "Arrears",
+        number: 2400,
+        amount: 40000,
+        color: "material-red"
+      }
+    ]
+  };
   render() {
     return (
       <div>
         <div className="text-mute pt-3 pl-3">
-          <small className="text-mute">Branch Managers > View</small>
+          <small className="text-mute">Clients > View</small>
         </div>
 
-        <div className="profile p-3 d-flex flex-row align-items-center justify-content-between">
-          <div className="d-flex flex-row align-items-center">
+        <div className="profile p-3 d-flex flex-row align-items-center row ">
+          <div className="d-flex flex-row align-items-center col-md-3">
             <div className="border avatar-lg bg-light d-flex flex-row align-items-center justify-content-center">
               <span className="initials">
                 {this.state.full_names ? this.state.full_names[0] : ""}
@@ -26,77 +53,76 @@ class branchManagerView extends Component {
               <h4>{this.state.full_names}</h4>
               <div>+ {this.state.msisdn}</div>
               <div className="ml-2 mt-1">
-                <span class="badge badge-secondary px-1">Branch manager</span>
+                <span className="badge badge-secondary px-1">Client</span>
               </div>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center">
-            <Link
-              to={"/clientEdit/" + this.props.match.params.id}
-              className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary  btn-round mr-3">
-              <Plus size={18} /> <span className="pl-1">Edit profile</span>
-            </Link>
 
-            {/* <Link
-              to={"/loanAdd/" + this.props.match.params.id}
-              className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary  btn-round">
-              <Plus size={18} /> <span className="pl-1">Add a Loan</span>
-            </Link> */}
-          </div>
+          {this.state.status.map(d => (
+            <Link
+              to={"/loanStatus/" + d.value}
+              className="col-md-3 mb-3 icon btn">
+              <div className={"card client-status text-white " + d.color}>
+                <div className="card-header trg-header d-flex flex-row align-items-center justify-content-between">
+                  <Circle className="" />
+                  <span className="title font-weight-bold">{d.label}</span>
+                  <Circle className="opacity-0" />
+                </div>
+                <div className="card-body text-white text-center">
+                  <h3 className="font-weight-bold">
+                    {d.number.toLocaleString()}
+                  </h3>
+                  {d.amount !== "" && (
+                    <span>Kshs {d.amount.toLocaleString()} Total</span>
+                  )}
+                  {d.amount === "" && <br />}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
-        <div className=" border-bottom">
-          <div className="tab-links d-flex flex-row mr-5">
-            <Link
-              to={"/branchManagerView/details/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold active">
-              <span>DETAILS</span>
-            </Link>
 
-            <Link
-              to={"/branchManagerView/loans/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>LOANS</span>
-            </Link>
+        <Tabs
+          tabs={[
+            {
+              label: "DETAILS",
+              link:
+                "/branchManagerView/details/" +
+                this.props.match.params.id +
+                "/" +
+                this.props.match.params.branch
+            },
+            {
+              label: "LOANS",
+              link:
+                "/branchManagerView/loans/" +
+                this.props.match.params.id +
+                "/" +
+                this.props.match.params.branch
+            },
+            {
+              label: "officers",
+              link:
+                "/branchManagerView/officers/" +
+                this.props.match.params.id +
+                "/" +
+                this.props.match.params.branch
+            }
+          ]}>
+          <Route
+            path="/branchManagerView/details/:id/:branch"
+            component={BranchManagerDetails}
+          />
+          <Route
+            path="/branchManagerView/loans/:id/:branch"
+            component={BranchLoans}
+          />
 
-            <Link
-              to={
-                "/branchManagerView/transactions/" + this.props.match.params.id
-              }
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>TRANSCATIONS</span>
-            </Link>
-
-            <Link
-              to={"/branchManagerView/perfomance/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>PERFOMANCE</span>
-            </Link>
-          </div>
-        </div>
-        <div className="tabs">
-          <div className="tab">
-            <Route
-              path="/branchManagerView/details/:id"
-              exact
-              component={Details}
-            />
-            <Route
-              path="/branchManagerView/loans/:id"
-              exact
-              component={ClientLoans}
-            />
-            <Route
-              path="/branchManagerView/transactions/:id"
-              exact
-              component={ClientTransactions}
-            />
-            <Route
-              path="/branchManagerView/perfomance/:id"
-              exact
-              component={Perfomance}
-            />
-          </div>
-        </div>
+          <Route
+            path="/branchManagerView/officers/:id/:branch"
+            component={BranchOfficers}
+          />
+        </Tabs>
       </div>
     );
   }
@@ -124,4 +150,4 @@ class branchManagerView extends Component {
   };
 }
 
-export default branchManagerView;
+export default ClientView;

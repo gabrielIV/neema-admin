@@ -12,15 +12,15 @@ class Modal extends Component {
     aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
    >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
+    <div className="modal-dialog modal-dialog-centered" role="document">
+     <div className="modal-content">
       <X
        className="icon position-absolute modal-close-icon m-2"
        onClick={() => {
         this.setState({ visible: false });
        }}
       />
-      <div class="modal-body">{this.props.children}</div>
+      <div className="modal-body">{this.props.children}</div>
      </div>
     </div>
    </div>

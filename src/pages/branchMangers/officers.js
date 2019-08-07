@@ -1,62 +1,18 @@
 import React, { Component } from "react";
-import Table from "../components/Table";
-import Filter from "../components/filter";
-import { Plus, Circle } from "react-feather";
+import Table from "../../components/Table";
+import Filter from "../../components/filter";
+import { Plus } from "react-feather";
 import { Link } from "react-router-dom";
-import Chart from "../components/chart";
 
-class BranchManagers extends Component {
-  state = {
-    tableData: { data: [] },
-    tableError: false,
-    query: {},
-    status: [
-      {
-        value: 1,
-        label: "Total Loans",
-        number: 2400,
-        amount: "",
-        color: "material-indigo"
-      },
-      {
-        value: 1,
-        label: "Target",
-        number: 2400,
-        amount: 40000,
-        color: "material-blue"
-      },
-      {
-        value: 1,
-        label: "Sales",
-        number: 2400,
-        amount: 40000,
-        color: "material-green"
-      },
-      {
-        value: 1,
-        label: "Arrears",
-        number: 2400,
-        amount: 40000,
-        color: "material-red"
-      }
-    ]
-  };
+class BranchOfficers extends Component {
+  state = { tableData: { data: [] }, tableError: false, query: {} };
   timeout = null;
   render() {
     return (
       <div className="p-3 ">
-        <div className="d-flex flex-row align-items-center justify-content-between">
-          <h2 className="">Branch managers</h2>
-          <Link
-            to="/branchManagersAdd"
-            className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary btn-sm btn-round">
-            <Plus size={18} />
-            <span className="pl-1">Add a Branch manager</span>
-          </Link>
-        </div>
-
-        <Filter
+        {/* <Filter
           branches={true}
+          zone={true}
           getFilter={filter => {
             setTimeout(() => {
               this.setState({
@@ -65,7 +21,7 @@ class BranchManagers extends Component {
               // console.log(this.state);
             }, 0);
           }}
-        />
+        /> */}
         <div className="mt-4">
           <Table
             data={this.state.tableData}
@@ -84,11 +40,15 @@ class BranchManagers extends Component {
     let urlParams = Object.entries(this.state.query)
       .map(e => e.join("="))
       .join("&");
-    console.log(urlParams);
+    console.log(
+      `${window.server}/users?${Object.entries(this.state.query)
+        .map(e => e.join("="))
+        .join("&")}&user_type=2&branch_code=` + this.props.match.params.branch
+    );
     fetch(
       `${window.server}/users?${Object.entries(this.state.query)
         .map(e => e.join("="))
-        .join("&")}&user_type=3`,
+        .join("&")}&user_type=2&branch_code=` + this.props.match.params.branch,
       {
         headers: {
           Authorization: localStorage.token
@@ -102,6 +62,7 @@ class BranchManagers extends Component {
         response.data.map(d => {
           data.push({
             "User ID": d.user_id,
+            "Agent ID": d.agent_id,
             "Full Name": d.full_names,
             email: d.email,
             gender: ["", "Male", "Female"][d.gender_id],
@@ -110,16 +71,11 @@ class BranchManagers extends Component {
             balance: d.balance,
             // identification_type: 1,
             "Phone Number": d.msisdn,
-            Branch: d.zone.zone_name,
+            zone: d.zone ? d.zone.zone_name : "",
             action: (
               <>
                 <Link
-                  to={
-                    "branchManagerView/details/" +
-                    d.user_id +
-                    "/" +
-                    d.zone.branch.branch_code
-                  }
+                  to={"/officerView/details/" + d.user_id}
                   className="btn btn-sm btn-primary">
                   View
                 </Link>
@@ -148,4 +104,4 @@ class BranchManagers extends Component {
   }
 }
 
-export default BranchManagers;
+export default BranchOfficers;

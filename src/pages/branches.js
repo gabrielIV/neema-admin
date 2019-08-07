@@ -24,10 +24,10 @@ class Users extends Component {
           <Chart
             title="Branches perfomance"
             filters={
-              <div class="d-flex flex-row">
-                <div class="mx-2 flex-column">
-                  <small class="mb-2 font-weight-bold">Branch </small>
-                  <select name="" id="" class="form-control py-1 filter-option">
+              <div className="d-flex flex-row">
+                <div className="mx-2 flex-column">
+                  <small className="mb-2 font-weight-bold">Branch </small>
+                  <select name="" id="" className="form-control py-1 filter-option">
                     <option value="0">ALL</option>
                     <option value="1">NAIROBI</option>
                     <option value="2">BranchNAME</option>

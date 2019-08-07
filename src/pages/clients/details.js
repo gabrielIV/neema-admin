@@ -45,7 +45,7 @@ class Details extends Component {
             balance: d.balance,
             // identification_type: 1,
             "Phone Number": d.msisdn,
-            zone: d.zones[0].zone_name
+            zone: d.zone.zone_name
           });
         });
         response.data = data;

@@ -1,62 +1,45 @@
 import React, { Component } from "react";
 import Table from "../components/Table";
 import Filter from "../components/filter";
-import { Plus, Circle } from "react-feather";
+import { Plus, Target, Circle } from "react-feather";
 import { Link } from "react-router-dom";
-import Chart from "../components/chart";
 
-class BranchManagers extends Component {
-  state = {
-    tableData: { data: [] },
-    tableError: false,
-    query: {},
-    status: [
-      {
-        value: 1,
-        label: "Total Loans",
-        number: 2400,
-        amount: "",
-        color: "material-indigo"
-      },
-      {
-        value: 1,
-        label: "Target",
-        number: 2400,
-        amount: 40000,
-        color: "material-blue"
-      },
-      {
-        value: 1,
-        label: "Sales",
-        number: 2400,
-        amount: 40000,
-        color: "material-green"
-      },
-      {
-        value: 1,
-        label: "Arrears",
-        number: 2400,
-        amount: 40000,
-        color: "material-red"
-      }
-    ]
-  };
+class ClientStatus extends Component {
+  state = { tableData: { data: [] }, tableError: false, query: {} };
   timeout = null;
   render() {
     return (
       <div className="p-3 ">
         <div className="d-flex flex-row align-items-center justify-content-between">
-          <h2 className="">Branch managers</h2>
-          <Link
-            to="/branchManagersAdd"
-            className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary btn-sm btn-round">
-            <Plus size={18} />
-            <span className="pl-1">Add a Branch manager</span>
-          </Link>
+          <div className="d-flex flex-column ">
+            <h2 className="m-0 mr">Active clients</h2>{" "}
+            <div className="d-flex flex-row">
+              <h5 className="mb-0 mt-2">
+                5,000 <small>Clients</small>
+              </h5>
+              <h5 className="mb-0 mt-2 mx-2">&bull;</h5>
+              <h5 className="mb-0 mt-2">
+                <small>Kshs</small> 200,000 <small>total</small>
+              </h5>
+            </div>
+          </div>
+
+          <div>
+            <select className="form-control">
+              <option value="">All clients</option>
+              <option value="">Active clients</option>
+              <option value="">Inactive clients</option>
+              <option value="">Dormant clients</option>
+            </select>
+          </div>
         </div>
 
         <Filter
+          // filter={[
+          //   { name: "All clients", value: 0 }
+          // ]}
           branches={true}
+          zone={true}
           getFilter={filter => {
             setTimeout(() => {
               this.setState({
@@ -88,7 +71,7 @@ class BranchManagers extends Component {
     fetch(
       `${window.server}/users?${Object.entries(this.state.query)
         .map(e => e.join("="))
-        .join("&")}&user_type=3`,
+        .join("&")}&user_type=1`,
       {
         headers: {
           Authorization: localStorage.token
@@ -110,19 +93,14 @@ class BranchManagers extends Component {
             balance: d.balance,
             // identification_type: 1,
             "Phone Number": d.msisdn,
-            Branch: d.zone.zone_name,
+            zone: d.zone.zone_name,
             action: (
               <>
                 <Link
-                  to={
-                    "branchManagerView/details/" +
-                    d.user_id +
-                    "/" +
-                    d.zone.branch.branch_code
-                  }
+                  to={"/clientView/details/" + d.user_id}
                   className="btn btn-sm btn-primary">
                   View
-                </Link>
+                </Link>{" "}
               </>
             )
           });
@@ -132,7 +110,7 @@ class BranchManagers extends Component {
       })
       .catch(d => {
         this.setState({ tableError: true });
-        console.log(d);
+        console.error(d);
       });
   };
 
@@ -148,4 +126,4 @@ class BranchManagers extends Component {
   }
 }
 
-export default BranchManagers;
+export default ClientStatus;

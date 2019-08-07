@@ -22,75 +22,75 @@ class officerAdd extends Component {
               <h3>1. Client details</h3>
             </div> */}
 
-            <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
-              <div class="container">
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Full name</span>
+            <div className="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+              <div className="container">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Full name</span>
                   <input
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                     value="Boniface Mbaria"
                   />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Phone number</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Phone number</span>
                   <input
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                     value="254715229228"
                   />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Email address</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Email address</span>
                   <input
                     type="email"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                     value="bndibx@gmail.com"
                   />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Gender</span>
-                  <select class="form-control">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Gender</span>
+                  <select className="form-control">
                     <option value="1">Male</option>
                     <option value="2">Female</option>
                   </select>
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Password</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Password</span>
                   <input
                     type="password"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                     value="qwerty"
                   />
                 </div>
-                <hr class="my-4 mx-3" />
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Identification Type</span>
-                  <select class="form-control">
+                <hr className="my-4 mx-3" />
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Identification Type</span>
+                  <select className="form-control">
                     <option value="1">Identity Card</option>
                     <option value="2">Passport Number</option>
                   </select>
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">ID number</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">ID number</span>
                   <input
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                     value="29495518"
                   />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Marital status</span>
-                  <select class="form-control">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Marital status</span>
+                  <select className="form-control">
                     <option value="1">Single</option>
                     <option value="2">Married</option>
                   </select>
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Branch</span>
-                  <select class="form-control">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Branch</span>
+                  <select className="form-control">
                     <option value="0">ALL</option>
                     <option value="1">ONFON ZONE</option>
                     <option value="2">TESTNAME</option>
@@ -98,10 +98,10 @@ class officerAdd extends Component {
                     <option value="4">TESTNAME</option>
                   </select>
                 </div>
-                <div class=" my-3 d-flex flex-row justify-content-between mt-5">
+                <div className=" my-3 d-flex flex-row justify-content-between mt-5">
                   <Link
                     to="/branchManagers"
-                    class="btn btn-primary px-5  ml-3"
+                    className="btn btn-primary px-5  ml-3"
                     onClick={() => {
                       alert("Added successfully");
                     }}>

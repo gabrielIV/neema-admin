@@ -104,13 +104,13 @@ class clientAdd extends Component {
             </div>
 
             <div className="bg-light py-5">
-              <div class="container">
-                {/* <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Add a file</span>
+              <div className="container">
+                {/* <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Add a file</span>
                   <input
                     type="file"
                     placeholder="..."
-                    class="form-control p-1"
+                    className="form-control p-1"
                     accept="image/*"
                     onChange={e => {
                       this.setState({
@@ -142,12 +142,12 @@ class clientAdd extends Component {
 
                 <div className="d-flex flex-row flex-wrap">
                   <div>
-                    <h5 class="ml-1 mb-2 d-block font-weight-bold">ID front</h5>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <h5 className="ml-1 mb-2 d-block font-weight-bold">ID front</h5>
+                    <label className="id-card d-flex flex-row align-items-center justify-content-center">
                       <input
                         type="file"
                         placeholder="..."
-                        class="form-control p-1 d-none"
+                        className="form-control p-1 d-none"
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -172,12 +172,12 @@ class clientAdd extends Component {
                   </div>
 
                   <div className="ml-5">
-                    <h5 class="ml-1 mb-2 d-block font-weight-bold">ID Back</h5>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <h5 className="ml-1 mb-2 d-block font-weight-bold">ID Back</h5>
+                    <label className="id-card d-flex flex-row align-items-center justify-content-center">
                       <input
                         type="file"
                         placeholder="..."
-                        class="form-control p-1 d-none"
+                        className="form-control p-1 d-none"
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -202,13 +202,13 @@ class clientAdd extends Component {
                   </div>
                 </div>
 
-                <div class=" my-3 d-flex flex-row justify-content-between mt-5">
+                <div className=" my-3 d-flex flex-row justify-content-between mt-5">
                   <button
-                    class="btn btn-primary px-5  ml-3"
+                    className="btn btn-primary px-5  ml-3"
                     onClick={() => this.setState({ activeSlide: 2 })}>
                     Submit
                   </button>
-                  <button class="btn btn-outline-primary px-5  ml-5">
+                  <button className="btn btn-outline-primary px-5  ml-5">
                     Reset form
                   </button>
                 </div>
@@ -223,41 +223,41 @@ class clientAdd extends Component {
               <h3>3. Add a Business</h3>
 
               <button
-                class="btn btn-primary px-5  ml-3"
+                className="btn btn-primary px-5  ml-3"
                 onClick={() => this.setState({ activeSlide: 3 })}>
                 Skip
               </button>
             </div>
 
-            <div class="py-3 bg-light border-top d-flex flex-fill">
-              <div class="container">
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Business Name</span>
-                  <input placeholder="..." class="form-control text-input" />
+            <div className="py-3 bg-light border-top d-flex flex-fill">
+              <div className="container">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Business Name</span>
+                  <input placeholder="..." className="form-control text-input" />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">
                     Business Registration Number
                   </span>
-                  <input placeholder="..." class="form-control text-input" />
+                  <input placeholder="..." className="form-control text-input" />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Business Description</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Business Description</span>
                   <input
                     type="textarea"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                   />
                 </div>
-                <hr class="my-4 mx-3" />
+                <hr className="my-4 mx-3" />
 
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Location Description</span>
-                  <input placeholder="..." class="form-control text-input" />
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Location Description</span>
+                  <input placeholder="..." className="form-control text-input" />
                 </div>
                 <div className="d-flex flex-row">
                   <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block font-weight-bold">
+                    <span className="ml-1 mb-2 d-block font-weight-bold">
                       Business location
                     </span>
                     <div className="map-card card">
@@ -272,12 +272,12 @@ class clientAdd extends Component {
                   </div>
 
                   <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block">Store Front Photo</span>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <span className="ml-1 mb-2 d-block">Store Front Photo</span>
+                    <label className="id-card d-flex flex-row align-items-center justify-content-center">
                       <input
                         type="file"
                         placeholder="..."
-                        class="form-control p-1 d-none"
+                        className="form-control p-1 d-none"
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -302,8 +302,8 @@ class clientAdd extends Component {
                   </div>
                 </div>
 
-                <div class=" my-3 d-flex flex-row justify-content-between mt-5">
-                  <button class="btn btn-primary px-5  ml-3">Submit</button>
+                <div className=" my-3 d-flex flex-row justify-content-between mt-5">
+                  <button className="btn btn-primary px-5  ml-3">Submit</button>
                 </div>
               </div>
             </div>
@@ -316,40 +316,40 @@ class clientAdd extends Component {
               <h3>4. Create a guarantor</h3>
             </div>
 
-            <div class="py-3 bg-light border-top d-flex flex-fill">
-              <div class="container">
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Guarantor Name</span>
-                  <input placeholder="..." class="form-control text-input" />
+            <div className="py-3 bg-light border-top d-flex flex-fill">
+              <div className="container">
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Guarantor Name</span>
+                  <input placeholder="..." className="form-control text-input" />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Identification Type</span>
-                  <select class="form-control" />
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Identification Type</span>
+                  <select className="form-control" />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Identification</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Identification</span>
                   <input
                     type="textarea"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                   />
                 </div>
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Description</span>
-                  <textarea placeholder="..." class="form-control text-input" />
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Description</span>
+                  <textarea placeholder="..." className="form-control text-input" />
                 </div>
-                <hr class="my-4 mx-3" />
+                <hr className="my-4 mx-3" />
 
                 <div className="d-flex flex-row">
                   <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block font-weight-bold">
+                    <span className="ml-1 mb-2 d-block font-weight-bold">
                       ID Front
                     </span>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <label className="id-card d-flex flex-row align-items-center justify-content-center">
                       <input
                         type="file"
                         placeholder="..."
-                        class="form-control p-1 d-none"
+                        className="form-control p-1 d-none"
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -374,14 +374,14 @@ class clientAdd extends Component {
                   </div>
 
                   <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block font-weight-bold">
+                    <span className="ml-1 mb-2 d-block font-weight-bold">
                       ID Back
                     </span>
-                    <label class="id-card d-flex flex-row align-items-center justify-content-center">
+                    <label className="id-card d-flex flex-row align-items-center justify-content-center">
                       <input
                         type="file"
                         placeholder="..."
-                        class="form-control p-1 d-none"
+                        className="form-control p-1 d-none"
                         accept="image/*"
                         onChange={e => {
                           this.setState({
@@ -408,7 +408,7 @@ class clientAdd extends Component {
 
                 <div className="d-flex flex-row mt-5">
                   <div className="ml-3">
-                    <span class="ml-1 mb-2 d-block font-weight-bold">
+                    <span className="ml-1 mb-2 d-block font-weight-bold">
                       Guarantor location
                     </span>
                     <div className="map-card card">
@@ -423,10 +423,10 @@ class clientAdd extends Component {
                   </div>
                 </div>
 
-                <div class=" my-3 d-flex flex-row justify-content-between mt-5">
+                <div className=" my-3 d-flex flex-row justify-content-between mt-5">
                   <Link
                     to="/clients"
-                    class="btn btn-primary px-5  ml-3 btn-lg"
+                    className="btn btn-primary px-5  ml-3 btn-lg"
                     onClick={() => {
                       alert("Added successfully");
                     }}>

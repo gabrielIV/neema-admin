@@ -14,7 +14,8 @@ import {
   UserCheck,
   Target,
   List,
-  Share2
+  Share2,
+  Briefcase
 } from "react-feather";
 import Login from "./pages/login";
 import Users from "./pages/clients";
@@ -39,6 +40,8 @@ import zoneAdd from "./pages/zoneAdd";
 import branchAdd from "./pages/branchAdd";
 import SMS from "./pages/sms";
 import OfficerView from "./pages/officerView ";
+import ClientStatus from "./pages/clientStatus";
+import LoanStatus from "./pages/loans/loanStatus";
 
 // Configs
 window.server = "http://197.254.22.228:3030";
@@ -152,7 +155,7 @@ class App extends Component {
     if (!this.state.errorload)
       return (
         <div className="loader h-100 w-100 d-flex flex-row align-items-center justify-content-center show-loader">
-          <div class="lds-roller">
+          <div className="lds-roller">
             <div />
             <div />
             <div />
@@ -222,18 +225,18 @@ class Portal extends Component {
             </Link>
             <div
               id="collapseUtilities"
-              class="collapse show"
+              className="collapse show"
               aria-labelledby="headingUtilities"
               data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">listing:</h6>
-                <Link class="collapse-item" to="/clients">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">listing:</h6>
+                <Link className="collapse-item" to="/clients">
                   Clients
                 </Link>
-                <Link class="collapse-item" to="/branchManagers">
+                <Link className="collapse-item" to="/branchManagers">
                   Branch Managers
                 </Link>
-                <Link class="collapse-item" to="/officers">
+                <Link className="collapse-item" to="/officers">
                   Officers
                 </Link>
               </div>
@@ -259,6 +262,30 @@ class Portal extends Component {
           </li>
 
           <li className="nav-item">
+            <div className="nav-link d-flex flex-row align-items-center">
+              <Briefcase color="white" size={18} />
+              <span className="text-white ml-2">Finance</span>
+            </div>
+            <div
+              id="collapseUtilities"
+              className="collapse show"
+              aria-labelledby="headingUtilities"
+              data-parent="#accordionSidebar">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <Link className="collapse-item" to="/accounts">
+                  Accounts
+                </Link>
+                <Link className="collapse-item" to="/sales">
+                  Sales
+                </Link>
+                <Link className="collapse-item" to="/arrears">
+                  Arrears
+                </Link>
+              </div>
+            </div>
+          </li>
+
+          <li className="nav-item">
             <div
               to="/notifications"
               className="nav-link d-flex flex-row align-items-center">
@@ -267,14 +294,14 @@ class Portal extends Component {
             </div>
             <div
               id="collapseUtilities"
-              class="collapse show"
+              className="collapse show"
               aria-labelledby="headingUtilities"
               data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <Link class="collapse-item" to="/sms">
+              <div className="bg-white py-2 collapse-inner rounded">
+                <Link className="collapse-item" to="/sms">
                   SMS
                 </Link>
-                <Link class="collapse-item" to="/emails">
+                <Link className="collapse-item" to="/emails">
                   Emails
                 </Link>
               </div>
@@ -308,30 +335,30 @@ class Portal extends Component {
             </Link>
           </li> */}
           {/* 
-          <li class="nav-item">
+          <li className="nav-item">
             <a
-              class="nav-link"
+              className="nav-link"
               href="#"
               data-toggle="collapse"
               data-target="#collapseUtilities"
               aria-expanded="true"
               aria-controls="collapseUtilities">
-              <i class="fas fa-fw fa-wrench" />
+              <i className="fas fa-fw fa-wrench" />
               <span>Categories</span>
             </a>
             <div
               id="collapseUtilities"
-              class="collapse show"
+              className="collapse show"
               aria-labelledby="headingUtilities"
               data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">listing:</h6>
-                <span class="collapse-item">Manufacturing</span>
-                <span class="collapse-item">Service Industry</span>
-                <span class="collapse-item">Transport</span>
+              <div className="bg-white py-2 collapse-inner rounded">
+                <h6 className="collapse-header">listing:</h6>
+                <span className="collapse-item">Manufacturing</span>
+                <span className="collapse-item">Service Industry</span>
+                <span className="collapse-item">Transport</span>
 
-                <span class="collapse-item">Agriculture</span>
-                <span class="collapse-item">Food Industry</span>
+                <span className="collapse-item">Agriculture</span>
+                <span className="collapse-item">Food Industry</span>
               </div>
             </div>
           </li> */}
@@ -362,16 +389,22 @@ class Portal extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/clients" exact component={Users} />
             <Route path="/clientAdd" exact component={clientAdd} />
+            <Route
+              path="/clientStatus/:status"
+              exact
+              component={ClientStatus}
+            />
             <Route path="/officerAdd" exact component={officerAdd} />
             <Route
-              path="/branchManagerView/:path/:id"
+              path="/branchManagerView/:path/:id/:branch"
               component={branchManagerView}
             />
             <Route path="/clientView/:path/:id" component={ClientView} />
             <Route path="/clientEdit" component={clientEdit} />
             <Route path="/loans" exact component={Loans} />
             <Route path="(/loanAdd|/loanAdd/:id)" component={LoanAdd} />
-            <Route path="/loanView/:id" exact component={loanView} />
+            <Route path="/loanView/:path/:id" component={loanView} />
+            <Route path="/loanStatus/:status" exact component={LoanStatus} />
             <Route path="/transactions" exact component={Transactions} />
             <Route path="/notifications" exact component={Notifications} />
             <Route path="/officers" exact component={Officers} />

@@ -4,9 +4,10 @@ import Details from "./clients/details";
 import { Plus } from "react-feather";
 import ClientLoans from "./clients/loans";
 import ClientTransactions from "./clients/transactions";
+import Tabs from "../components/tabs";
 
 class ClientView extends Component {
-  state = {};
+  state = { currentRoute: "" };
   render() {
     return (
       <div>
@@ -25,7 +26,7 @@ class ClientView extends Component {
               <h4>{this.state.full_names}</h4>
               <div>+ {this.state.msisdn}</div>
               <div className="ml-2 mt-1">
-                <span class="badge badge-secondary px-1">Client</span>
+                <span className="badge badge-secondary px-1">Client</span>
               </div>
             </div>
           </div>
@@ -43,44 +44,38 @@ class ClientView extends Component {
             </Link>
           </div>
         </div>
-        <div className=" border-bottom">
-          <div className="tab-links d-flex flex-row mr-5">
-            <Link
-              to={"/clientView/details/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold active">
-              <span>DETAILS</span>
-            </Link>
 
-            <Link
-              to={"/clientView/loans/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>LOANS</span>
-            </Link>
-
-            <Link
-              to={"/clientView/transactions/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>TRANSCATIONS</span>
-            </Link>
-
-            <Link
-              to={"/branchManagerView/perfomance/" + this.props.match.params.id}
-              className="tab-link mr-3 p-3 position-relative font-weight-bold">
-              <span>PERFOMANCE</span>
-            </Link>
-          </div>
-        </div>
-        <div className="tabs">
-          <div className="tab">
-            <Route path="/clientView/details/:id" exact component={Details} />
-            <Route path="/clientView/loans/:id" exact component={ClientLoans} />
-            <Route
-              path="/clientView/transactions/:id"
-              exact
-              component={ClientTransactions}
-            />
-          </div>
-        </div>
+        <Tabs
+          tabs={[
+            {
+              label: "DETAILS",
+              link: "/clientView/details/" + this.props.match.params.id,
+              component: Details
+            },
+            {
+              label: "LOANS",
+              link: "/clientView/loans/" + this.props.match.params.id,
+              component: ClientLoans
+            },
+            {
+              label: "TRANSCATIONS",
+              link: "/clientView/transactions/" + this.props.match.params.id,
+              component: ClientTransactions
+            }
+            // {
+            //   label: "PERFOMANCE",
+            //   link: "/clientView/perfomance/" + this.props.match.params.id,
+            //   component:Perf
+            // }
+          ]}>
+          <Route path="/clientView/details/:id" exact component={Details} />
+          <Route path="/clientView/loans/:id" exact component={ClientLoans} />
+          <Route
+            path="/clientView/transactions/:id"
+            exact
+            component={ClientTransactions}
+          />
+        </Tabs>
       </div>
     );
   }

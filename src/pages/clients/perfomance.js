@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import Chart from "../../components/chart";
 
-class Perfomance extends Component {
+class UserPerfomance extends Component {
   state = {};
   render() {
     return (
-      <div class="p-3">
+      <div className="p-3">
         <div className="col-md-6 my-5">
           <Chart
             title="User perfomance"
             filters={
-              <div class="d-flex flex-row">
-                <div class="mx-2 flex-column">
-                  <small class="mb-2 font-weight-bold">Branch </small>
-                  <select name="" id="" class="form-control py-1 filter-option">
+              <div className="d-flex flex-row">
+                <div className="mx-2 flex-column">
+                  <small className="mb-2 font-weight-bold">Branch </small>
+                  <select
+                    name=""
+                    id=""
+                    className="form-control py-1 filter-option">
                     <option value="0">ALL</option>
                     <option value="1">NAIROBI</option>
                     <option value="2">BranchNAME</option>
@@ -21,9 +24,12 @@ class Perfomance extends Component {
                     <option value="4">BranchNAME</option>
                   </select>
                 </div>
-                <div class="mx-2 flex-column">
-                  <small class="mb-2 font-weight-bold">Zone </small>
-                  <select name="" id="" class="form-control py-1 filter-option">
+                <div className="mx-2 flex-column">
+                  <small className="mb-2 font-weight-bold">Zone </small>
+                  <select
+                    name=""
+                    id=""
+                    className="form-control py-1 filter-option">
                     <option value="0">ALL</option>
                     <option value="1">ONFON ZONE</option>
                     <option value="2">TESTNAME</option>
@@ -62,4 +68,4 @@ class Perfomance extends Component {
   }
 }
 
-export default Perfomance;
+export default UserPerfomance;

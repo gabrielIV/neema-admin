@@ -26,7 +26,7 @@ class OfficerView extends Component {
               <h4>{this.state.full_names}</h4>
               <div>+ {this.state.msisdn}</div>
               <div className="ml-2 mt-1">
-                <span class="badge badge-secondary px-1">Client</span>
+                <span className="badge badge-secondary px-1">Client</span>
               </div>
             </div>
           </div>

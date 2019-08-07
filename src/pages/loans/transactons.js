@@ -6,7 +6,7 @@ import * as moment from "moment";
 
 import Table from "../../components/Table";
 
-class clientTransactions extends Component {
+class loanTransactions extends Component {
   state = { data: [{}], tableData: [] };
   render() {
     return (
@@ -111,4 +111,4 @@ class clientTransactions extends Component {
   }
 }
 
-export default clientTransactions;
+export default loanTransactions;

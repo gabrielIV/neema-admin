@@ -33,15 +33,15 @@ class LoanAdd extends Component {
             <h3>1. Create loan</h3>
           </div>
 
-          <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
-            <div class="container ">
+          <div className="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+            <div className="container ">
               <div className="d-flex flex-row flex-wrap">
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Loan amout</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Loan amout</span>
                   <input
                     type="number"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                   />
                 </div>
 
@@ -94,27 +94,27 @@ class LoanAdd extends Component {
                   </div>
                 </div>
 
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Number of Days</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Number of Days</span>
                   <input
                     type="number"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                   />
                 </div>
 
-                <div class="mx-3 d-inline-block mb-3">
-                  <span class="ml-1 mb-2 d-block">Choose a loan officer</span>
+                <div className="mx-3 d-inline-block mb-3">
+                  <span className="ml-1 mb-2 d-block">Choose a loan officer</span>
                   <input
                     type="number"
                     placeholder="..."
-                    class="form-control text-input"
+                    className="form-control text-input"
                   />
                 </div>
               </div>
 
-              <div class=" my-3 d-flex flex-row justify-content-between mt-5">
-                <button class="btn btn-primary px-5  ml-3">Submit</button>
+              <div className=" my-3 d-flex flex-row justify-content-between mt-5">
+                <button className="btn btn-primary px-5  ml-3">Submit</button>
               </div>
             </div>
           </div>
@@ -125,41 +125,41 @@ class LoanAdd extends Component {
             <h3>2. Add loan Collateral</h3>
           </div>
 
-          <div class="pb-3 pt-5 bg-light border-top d-flex flex-fill">
-            <div class="container">
+          <div className="pb-3 pt-5 bg-light border-top d-flex flex-fill">
+            <div className="container">
               {this.state.collaterals.map((d, i) => (
                 <div className="collateral-card p-3 mb-3">
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Item name</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Item name</span>
                     <input
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Quantity</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Quantity</span>
                     <input
                       type="number"
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Serial Number</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Serial Number</span>
                     <input
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
-                  <div class="mx-3 d-inline-block mb-3">
-                    <span class="ml-1 mb-2 d-block">Total value</span>
+                  <div className="mx-3 d-inline-block mb-3">
+                    <span className="ml-1 mb-2 d-block">Total value</span>
                     <input
                       type="number"
                       placeholder="..."
-                      class="form-control text-input"
+                      className="form-control text-input"
                       value=""
                     />
                   </div>
@@ -167,7 +167,7 @@ class LoanAdd extends Component {
               ))}
               <div className="text-center mt-5">
                 <button
-                  class="btn btn-outline-primary px-5  ml-5"
+                  className="btn btn-outline-primary px-5  ml-5"
                   onClick={() => {
                     let { collaterals } = this.state;
                     collaterals.push(1);
@@ -179,8 +179,8 @@ class LoanAdd extends Component {
                 </button>
               </div>
 
-              <div class=" my-3 d-flex flex-row justify-content-between mt-5">
-                <button class="btn btn-primary px-5  ml-3">Submit</button>
+              <div className=" my-3 d-flex flex-row justify-content-between mt-5">
+                <button className="btn btn-primary px-5  ml-3">Submit</button>
               </div>
             </div>
           </div>
