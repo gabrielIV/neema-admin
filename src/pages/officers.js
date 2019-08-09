@@ -5,7 +5,11 @@ import { Plus } from "react-feather";
 import { Link } from "react-router-dom";
 
 class Users extends Component {
-  state = { tableData: { data: [] }, tableError: false, query: {} };
+  state = {
+    tableData: { data: [] },
+    tableError: false,
+    query: {}
+  };
   timeout = null;
   render() {
     return (

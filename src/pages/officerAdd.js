@@ -4,7 +4,7 @@ import { X, Trash, Plus } from "react-feather";
 import { Route, Link, Switch } from "react-router-dom";
 
 class officerAdd extends Component {
-  state = { activeSlide: 0, files: [] };
+  state = { activeSlide: 0, files: [], officerData: { data: [] } };
   render() {
     return (
       <div>

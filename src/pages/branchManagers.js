@@ -110,7 +110,7 @@ class BranchManagers extends Component {
             balance: d.balance,
             // identification_type: 1,
             "Phone Number": d.msisdn,
-            Branch: d.zone.zone_name,
+            Branch: d.zone.branch.branch_name,
             action: (
               <>
                 <Link

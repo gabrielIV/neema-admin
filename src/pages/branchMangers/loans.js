@@ -48,7 +48,7 @@ class BranchLoans extends Component {
     fetch(
       `${window.server}/loans?${Object.entries(this.state.query)
         .map(e => e.join("="))
-        .join("&")}&user_id=${this.props.match.params.id}`,
+        .join("&")}&branch_code=${this.props.match.params.branch}`,
       {
         headers: {
           Authorization: localStorage.token

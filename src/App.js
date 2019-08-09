@@ -42,12 +42,15 @@ import SMS from "./pages/sms";
 import OfficerView from "./pages/officerView ";
 import ClientStatus from "./pages/clientStatus";
 import LoanStatus from "./pages/loans/loanStatus";
+import Accounts from "./pages/accounts";
+import Sales from "./pages/sales";
 
 // Configs
 window.server = "http://197.254.22.228:3030";
 
 // window.zones = [];
 // window.branches = [];
+// window.accounts = [];
 
 // end Configs
 window.verifyNumber = n => {
@@ -278,9 +281,6 @@ class Portal extends Component {
                 <Link className="collapse-item" to="/sales">
                   Sales
                 </Link>
-                <Link className="collapse-item" to="/arrears">
-                  Arrears
-                </Link>
               </div>
             </div>
           </li>
@@ -388,7 +388,7 @@ class Portal extends Component {
           <div className="bg-white d-flex flex-fill flex-column">
             <Route path="/" exact component={Home} />
             <Route path="/clients" exact component={Users} />
-            <Route path="/clientAdd" exact component={clientAdd} />
+            <Route path="/clientAdd" component={clientAdd} />
             <Route
               path="/clientStatus/:status"
               exact
@@ -402,7 +402,7 @@ class Portal extends Component {
             <Route path="/clientView/:path/:id" component={ClientView} />
             <Route path="/clientEdit" component={clientEdit} />
             <Route path="/loans" exact component={Loans} />
-            <Route path="(/loanAdd|/loanAdd/:id)" component={LoanAdd} />
+            <Route path="/loanAdd/:index/:id" component={LoanAdd} />
             <Route path="/loanView/:path/:id" component={loanView} />
             <Route path="/loanStatus/:status" exact component={LoanStatus} />
             <Route path="/transactions" exact component={Transactions} />
@@ -413,6 +413,8 @@ class Portal extends Component {
               exact
               component={OfficerView}
             />
+            <Route path="/accounts" exact component={Accounts} />
+            <Route path="/sales" exact component={Sales} />
             <Route path="/branches" exact component={Branches} />
             <Route path="/branchAdd" exact component={branchAdd} />
             <Route path="/zones" exact component={Zones} />

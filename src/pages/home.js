@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import Chart from "../components/chart";
-import { Target, DollarSign, TrendingDown, User } from "react-feather";
+import {
+  Target,
+  DollarSign,
+  TrendingDown,
+  User,
+  Calendar
+} from "react-feather";
+import moment from "moment";
 
 class Home extends Component {
   state = {
@@ -9,66 +16,80 @@ class Home extends Component {
       fill: true,
       borderColor: "#4e73df",
       borderCapStyle: "square"
-    }
+    },
+    totals: [
+      {
+        color: "material-blue",
+        icon: <Target className="mr-4" />,
+        label: "Target",
+        amount: 0
+      },
+      {
+        color: "material-green",
+        icon: <DollarSign className="mr-4" />,
+        label: "Sales",
+        amount: 0
+      },
+      {
+        icon: <TrendingDown className="mr-4" />,
+        color: "material-red",
+        label: "Arrears",
+        amount: 0
+      }
+    ],
+    totalsEndDate: moment().format("YYYY-MM-DD"),
+    totalsStartDate: moment()
+      .subtract(1, "days")
+      .format("YYYY-MM-DD")
   };
   render() {
     return (
       <div>
-        <div className="p-3 d-flex flex-row justify-content-between align-items-center">
+        <div className="p-3 d-flex flex-row justify-content-between align-items-center d-flex flex-row align-items-center">
           <h2 className="font-weight-bold">Dashboard</h2>
+          <div className="position-relative d-flex flex-row">
+            <select
+              className="form-control"
+              onChange={e => {
+                this.setState({
+                  totalsStartDate: moment()
+                    .subtract(parseInt(e.target.value), "days")
+                    .format("YYYY-MM-DD")
+                });
+                setTimeout(() => {
+                  this.fetchSales();
+                }, 0);
+              }}>
+              <option value="1">Yesterday</option>
+              <option value="7">This week</option>
+              <option value="30">last 30 days</option>
+              <option value="90">last 90 days</option>
+              <option value="180">last 6 months</option>
+              <option value="365">last 1 year</option>
+              <option value="7">last 5 years</option>
+            </select>
+          </div>
         </div>
         <div className="px-3">
           <div className="row mb-5 ">
-            <div className="col-md-3">
-              <div className="card material-blue text-white">
-                <div className="card-header trg-header d-flex flex-row align-items-center">
-                  <Target className="mr-4" />
-                  <span className="title font-weight-bold">Target</span>
-                </div>
-                <div className="card-body text-white">
-                  <h3 className="font-weight-bold">
-                    <small>
-                      <small> Kshs</small>
-                    </small>{" "}
-                    2,300,000
-                  </h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card material-green text-white">
-                <div className="card-header trg-header d-flex flex-row align-items-center">
-                  <DollarSign className="mr-4" />
-                  <span className="title font-weight-bold">Sales</span>
-                </div>
-                <div className="card-body text-white">
-                  <h3 className="font-weight-bold">
-                    <small>
-                      <small> Kshs</small>
-                    </small>{" "}
-                    2,300,000
-                  </h3>
+            {this.state.totals.map((d, i) => (
+              <div className="col-md-3" key={i}>
+                <div className={"card text-white " + d.color}>
+                  <div className="card-header trg-header d-flex flex-row align-items-center">
+                    {d.icon}
+                    <span className="title font-weight-bold">{d.label}</span>
+                  </div>
+                  <div className="card-body text-white">
+                    <h3 className="font-weight-bold">
+                      <small>
+                        <small> Kshs</small>
+                      </small>{" "}
+                      {d.amount.toLocaleString()}
+                    </h3>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card material-deep-orange text-white">
-                <div className="card-header trg-header d-flex flex-row align-items-center">
-                  <TrendingDown className="mr-4" />
-                  <span className="title font-weight-bold">Arrears</span>
-                </div>
-                <div className="card-body text-white">
-                  <h3 className="font-weight-bold">
-                    <small>
-                      <small> Kshs</small>
-                    </small>{" "}
-                    2,300,000
-                  </h3>
-                </div>
-              </div>
-            </div>
+            ))}
 
             <div className="col-md-3">
               <div className="card material-deep-purple text-white">
@@ -86,31 +107,6 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-
-            {/* <div className="col-md-3">
-              <div className="card icon tex-">
-                <h1 className="text-center p-2">2,500</h1>
-                <div className="card-header">Daily Active Users</div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card icon tex-">
-                <h1 className="text-center p-2">-26.31%</h1>
-                <div className="card-header">Daily Growth rate</div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card icon tex-">
-                <h1 className="text-center p-2">1.31%</h1>
-                <div className="card-header">Average Growth rate</div>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="card icon">
-                <h1 className="text-center p-2">2,080</h1>
-                <div className="card-header">Total number of users</div>
-              </div>
-            </div> */}
           </div>
 
           {/* <div className="w-100 d-block" className="p-3 mt-5">
@@ -245,6 +241,43 @@ class Home extends Component {
       </div>
     );
   }
+
+  componentDidMount = () => {
+    this.fetchSales();
+  };
+
+  fetchSales = () => {
+    this.setState({ modalVisible: true });
+    console.log(this.state.totalsStartDate);
+    fetch(
+      `${window.server}/utils/salestotals?&startdate=${
+        this.state.totalsStartDate
+      }&enddate=${this.state.totalsEndDate}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.token
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.code === 400 || response.code === 403) {
+        } else {
+          let { totals } = this.state;
+          Object.keys(response.data[0]).map((d, i) => {
+            totals[i].amount = response.data[0][d];
+          });
+          this.setState({ totals });
+        }
+      })
+      .catch(d => {
+        alert("Error saving the data");
+        console.log(d);
+        this.setState({ modalVisible: false });
+      });
+  };
 }
 
 export default Home;

@@ -51,6 +51,8 @@ class ClientStatus extends Component {
         />
         <div className="mt-4">
           <Table
+            sort="created_at"
+            sortDirection={-1}
             data={this.state.tableData}
             fetch={params => {
               this.setState({ query: { ...this.state.query, ...params } });
@@ -100,7 +102,12 @@ class ClientStatus extends Component {
                   to={"/clientView/details/" + d.user_id}
                   className="btn btn-sm btn-primary">
                   View
-                </Link>{" "}
+                </Link>
+                {d.is_verified === 0 && (
+                  <button className="btn btn-sm btn-success ml-3">
+                    Verify
+                  </button>
+                )}
               </>
             )
           });

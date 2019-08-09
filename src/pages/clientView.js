@@ -38,7 +38,7 @@ class ClientView extends Component {
             </Link>
 
             <Link
-              to={"/loanAdd/" + this.props.match.params.id}
+              to={"/loanAdd/1/" + this.props.match.params.id}
               className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary  btn-round">
               <Plus size={18} /> <span className="pl-1">Add a Loan</span>
             </Link>

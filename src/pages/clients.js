@@ -62,7 +62,7 @@ class Users extends Component {
         <div className="d-flex flex-row align-items-center justify-content-between">
           <h2 className="font-weight-bol mb-0">Clients</h2>
           <Link
-            to="/clientAdd"
+            to="/clientAdd/1"
             className="option-card pr-3 d-flex flex-row btn align-items-center btn-primary btn-sm btn-round">
             <Plus size={18} /> <span className="pl-1">Add a Client</span>
           </Link>

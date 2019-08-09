@@ -39,7 +39,7 @@ class ClientLoans extends Component {
     );
   }
 
-  fetchClients = () => {
+  fetchLoans = () => {
     this.setState({ tableError: false });
     let urlParams = Object.entries(this.state.query)
       .map(e => e.join("="))
@@ -71,7 +71,7 @@ class ClientLoans extends Component {
         response.data.map(d => {
           data.push({
             "Loan ID": d.loan_id,
-            "Client Name": d.client[0].full_names,
+            "Client Name": d.client.full_names,
             Amount: "kes " + d.loan_amount.toLocaleString(),
             "Amount disbursed":
               "kes " + d.loan_amount_disbursed.toLocaleString(),
@@ -99,7 +99,7 @@ class ClientLoans extends Component {
 
       clearTimeout(this.timeout);
       this.timeout = setTimeout(function() {
-        $t.fetchClients();
+        $t.fetchLoans();
       }, 100);
     }
   }

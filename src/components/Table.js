@@ -12,7 +12,9 @@ class Table extends Component {
     currentPagination: 0,
     custom: false,
     customText: "",
-    tableLoading: true
+    tableLoading: true,
+    sort: this.props.sort ? this.props.sort : "",
+    sortDirection: this.props.sortDirection ? this.props.sortDirection : -1
   };
   render() {
     return (
@@ -76,7 +78,20 @@ class Table extends Component {
               <thead>
                 <tr>
                   {this.state.titles.map((title, i) => (
-                    <th key={i} className="text-capitalize">
+                    <th
+                      key={i}
+                      className="text-capitalize"
+                      onClick={() => {
+                        this.setState({
+                          sort: title,
+                          sortDirection:
+                            this.state.sortDirection === -1 ? 1 : -1
+                        });
+
+                        setTimeout(() => {
+                          this.fetchTable();
+                        }, 0);
+                      }}>
                       {title.replace(/_/g, " ")}
                     </th>
                   ))}
@@ -199,7 +214,15 @@ class Table extends Component {
 
   fetchTable = () => {
     this.setState({ tableLoading: true });
-    this.props.fetch({ $skip: this.state.offset, $limit: this.state.limit });
+    let params = {
+      $skip: this.state.offset,
+      $limit: this.state.limit
+    };
+
+    if (this.state.sort !== "") {
+      params[`$sort[${this.state.sort}]`] = this.state.sortDirection;
+    }
+    this.props.fetch(params);
   };
 
   generatePagination() {
@@ -260,6 +283,7 @@ class Table extends Component {
       } else {
         titles = Object.keys(data[0]);
       }
+      this.titles = titles;
 
       this.setState({
         data,

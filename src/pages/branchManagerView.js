@@ -8,6 +8,15 @@ import BranchLoans from "./branchMangers/loans";
 import BranchOfficers from "./branchMangers/officers";
 import BranchManagerDetails from "./branchMangers/details";
 
+import {
+  Target,
+  DollarSign,
+  TrendingDown,
+  User,
+  Calendar
+} from "react-feather";
+import moment from "moment";
+
 class ClientView extends Component {
   state = {
     currentRoute: "",
@@ -33,13 +42,59 @@ class ClientView extends Component {
         amount: 40000,
         color: "material-red"
       }
-    ]
+    ],
+    totals: [
+      {
+        color: "material-blue",
+        icon: <Target className="mr-4" />,
+        label: "Target",
+        amount: 0
+      },
+      {
+        color: "material-green",
+        icon: <DollarSign className="mr-4" />,
+        label: "Sales",
+        amount: 0
+      },
+      {
+        icon: <TrendingDown className="mr-4" />,
+        color: "material-red",
+        label: "Arrears",
+        amount: 0
+      }
+    ],
+    totalsEndDate: moment().format("YYYY-MM-DD"),
+    totalsStartDate: moment()
+      .subtract(1, "days")
+      .format("YYYY-MM-DD")
   };
   render() {
     return (
       <div>
-        <div className="text-mute pt-3 pl-3">
+        <div className="text-mute pt-3 pl-3 d-flex flex-row justify-content-between">
           <small className="text-mute">Clients > View</small>
+          <div className="position-relative d-flex flex-row mr-3">
+            <select
+              className="form-control"
+              onChange={e => {
+                this.setState({
+                  totalsStartDate: moment()
+                    .subtract(parseInt(e.target.value), "days")
+                    .format("YYYY-MM-DD")
+                });
+                setTimeout(() => {
+                  this.fetchSales();
+                }, 0);
+              }}>
+              <option value="1">Yesterday</option>
+              <option value="7">This week</option>
+              <option value="30">last 30 days</option>
+              <option value="90">last 90 days</option>
+              <option value="180">last 6 months</option>
+              <option value="365">last 1 year</option>
+              <option value="7">last 5 years</option>
+            </select>
+          </div>
         </div>
 
         <div className="profile p-3 d-flex flex-row align-items-center row ">
@@ -58,27 +113,23 @@ class ClientView extends Component {
             </div>
           </div>
 
-          {this.state.status.map(d => (
-            <Link
-              to={"/loanStatus/" + d.value}
-              className="col-md-3 mb-3 icon btn">
-              <div className={"card client-status text-white " + d.color}>
-                <div className="card-header trg-header d-flex flex-row align-items-center justify-content-between">
-                  <Circle className="" />
+          {this.state.totals.map((d, i) => (
+            <div className="col-md-3" key={i}>
+              <div className={"card text-white " + d.color}>
+                <div className="card-header trg-header d-flex flex-row align-items-center">
+                  {d.icon}
                   <span className="title font-weight-bold">{d.label}</span>
-                  <Circle className="opacity-0" />
                 </div>
-                <div className="card-body text-white text-center">
+                <div className="card-body text-white">
                   <h3 className="font-weight-bold">
-                    {d.number.toLocaleString()}
+                    <small>
+                      <small> Kshs</small>
+                    </small>{" "}
+                    {d.amount.toLocaleString()}
                   </h3>
-                  {d.amount !== "" && (
-                    <span>Kshs {d.amount.toLocaleString()} Total</span>
-                  )}
-                  {d.amount === "" && <br />}
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
@@ -107,6 +158,14 @@ class ClientView extends Component {
                 this.props.match.params.id +
                 "/" +
                 this.props.match.params.branch
+            },
+            {
+              label: "perfomance",
+              link:
+                "/branchManagerView/perfomance/" +
+                this.props.match.params.id +
+                "/" +
+                this.props.match.params.branch
             }
           ]}>
           <Route
@@ -122,6 +181,10 @@ class ClientView extends Component {
             path="/branchManagerView/officers/:id/:branch"
             component={BranchOfficers}
           />
+          {/* <Route
+            path="/branchManagerView/officers/:id/:branch"
+            component={Perfoman}
+          /> */}
         </Tabs>
       </div>
     );
@@ -129,6 +192,7 @@ class ClientView extends Component {
 
   componentDidMount = () => {
     this.fetch();
+    this.fetchSales();
   };
 
   fetch = () => {
@@ -146,6 +210,40 @@ class ClientView extends Component {
       .catch(d => {
         this.setState({ tableError: true });
         console.log(d);
+      });
+  };
+
+  fetchSales = () => {
+    this.setState({ modalVisible: true });
+    console.log(this.state.totalsStartDate);
+    fetch(
+      `${window.server}/utils/salestotals?&startdate=${
+        this.state.totalsStartDate
+      }&enddate=${this.state.totalsEndDate}&branch_code=${
+        this.props.match.params.branch
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.token
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        if (response.code === 400 || response.code === 403) {
+        } else {
+          let { totals } = this.state;
+          Object.keys(response.data[0]).map((d, i) => {
+            totals[i].amount = response.data[0][d];
+          });
+          this.setState({ totals });
+        }
+      })
+      .catch(d => {
+        console.error(d);
+        this.setState({ modalVisible: false });
       });
   };
 }

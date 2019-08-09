@@ -29,9 +29,18 @@ class Filter extends Component {
                   name=""
                   id=""
                   className="form-control py-1 filter-option"
-                  onChange={e =>
-                    this.setState({ branch: parseInt(e.target.value) })
-                  }>
+                  onChange={e => {
+                    this.setState({
+                      branch: parseInt(e.target.value),
+                      zone: window.zones.filter(
+                        d => d.branch_id === parseInt(e.target.value)
+                      )[0]
+                        ? window.zones.filter(
+                            d => d.branch_id === parseInt(e.target.value)
+                          )[0].zone_code
+                        : 0
+                    });
+                  }}>
                   {window.branches.map(d => (
                     <option value={d.id}>{d.branch_name}</option>
                   ))}
@@ -169,11 +178,17 @@ class Filter extends Component {
 
   updateFilter = () => {
     let filterData = {};
-    if (this.state.zone !== 0) {
-      filterData = {
-        zone_id: this.state.zone
-      };
+    let zone = window.zones.filter(d => this.state.zone == d.id)[0];
+    if (this.state.zone !== 0 && zone) {
+      filterData["zone_code"] = zone.zone_code;
     }
+
+    if (this.state.branch !== 0) {
+      filterData["branch_code"] = window.branches.filter(
+        d => this.state.branch == d.id
+      )[0].branch_code;
+    }
+
     filterData = { ...filterData, ...this.state.filter };
     // console.log(filterData);
     this.props.getFilter(filterData);
